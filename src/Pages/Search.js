@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import Header from '../Components/Header';
 
 function Search({ history: { location: { pathname } } }) {
-  const [recipeType, setRecipeType] = useState('Foods');
+  const [recipeType, setRecipeType] = useState('');
 
   useEffect(() => {
-    if (pathname === '/food') {
+    if (pathname === '/foods') {
       setRecipeType('Foods');
     }
-    if (pathname === '/drink') {
+    if (pathname === '/drinks') {
       setRecipeType('Drinks');
     }
   }, [pathname]);
