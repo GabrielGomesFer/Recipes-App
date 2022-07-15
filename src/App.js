@@ -6,21 +6,29 @@ import Profile from './Pages/Profile';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
 import DoneRecipes from './Pages/DoneRecipes';
 import RecipeDetails from './Pages/RecipeDetails';
-import './App.css';
+import RecipeInProgress from './Pages/RecipeInProgress';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <Switch>
-      {/* <Route path="/drinks/:id/in-progress" render={ (props) => <componente { ...props }> } />
-      <Route path="/foods/:id/in-progress" render={} /> */}
+      <Route
+        path="/drinks/:id/in-progress"
+        render={ (props) => (
+          <RecipeInProgress { ...props } />) }
+      />
+      <Route
+        path="/foods/:id/in-progress"
+        render={ (props) => (
+          <RecipeInProgress { ...props } />
+        ) }
+      />
       <Route path="/drinks/:id" render={ (props) => <RecipeDetails { ...props } /> } />
       <Route path="/foods/:id" render={ (props) => <RecipeDetails { ...props } /> } />
       <Route path="/done-recipes" component={ DoneRecipes } />
       <Route path="/favorite-recipes" component={ FavoriteRecipes } />
       <Route path="/profile" component={ Profile } />
       <Route path="/drinks" component={ Search } />
-      {/* <Route path="/foods" render={ (props) => <Search { ...props } /> } /> */}
       <Route path="/foods" component={ Search } />
       <Route exact path="/" component={ Login } />
     </Switch>
