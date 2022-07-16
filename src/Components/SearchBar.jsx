@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../Context/recipesContext';
 import fetchAPIs from '../services/FetchAPI';
+import './StyleSheet/SearchBar.css';
 
 function SearchBar({ recipeType }) {
   const [inputSearch, setInputSearch] = useState({
@@ -73,7 +74,7 @@ function SearchBar({ recipeType }) {
   };
 
   return (
-    <form>
+    <form className="form-container-search">
       <input
         type="text"
         id="input-search"
@@ -81,47 +82,53 @@ function SearchBar({ recipeType }) {
         value={ inputSearch.textValue }
         onChange={ inputSearchChanges }
         data-testid="search-input"
+        placeholder="Buscar por"
+        className="input-search"
       />
-      <label htmlFor="ingredient">
-        <input
-          type="radio"
-          id="ingredient"
-          name="searchType"
-          value="i="
-          onChange={ inputSearchChanges }
-          data-testid="ingredient-search-radio"
-        />
-        Ingredient
-      </label>
-      <label htmlFor="name">
-        <input
-          type="radio"
-          id="name"
-          name="searchType"
-          value="s="
-          onChange={ inputSearchChanges }
-          data-testid="name-search-radio"
-        />
-        Name
-      </label>
-      <label htmlFor="firstLetter">
-        <input
-          type="radio"
-          id="firstLetter"
-          name="searchType"
-          value="f="
-          onChange={ inputSearchChanges }
-          data-testid="first-letter-search-radio"
-        />
-        First letter
-      </label>
-      <button
-        type="button"
-        data-testid="exec-search-btn"
-        onClick={ searchButtonClick }
-      >
-        SEARCH
-      </button>
+      <div className="form-radio-contaniner">
+        <div>
+          <label htmlFor="ingredient">
+            <input
+              type="radio"
+              id="ingredient"
+              name="searchType"
+              value="i="
+              onChange={ inputSearchChanges }
+              data-testid="ingredient-search-radio"
+            />
+            Ingredient
+          </label>
+          <label htmlFor="name">
+            <input
+              type="radio"
+              id="name"
+              name="searchType"
+              value="s="
+              onChange={ inputSearchChanges }
+              data-testid="name-search-radio"
+            />
+            Name
+          </label>
+          <label htmlFor="firstLetter">
+            <input
+              type="radio"
+              id="firstLetter"
+              name="searchType"
+              value="f="
+              onChange={ inputSearchChanges }
+              data-testid="first-letter-search-radio"
+            />
+            First letter
+          </label>
+        </div>
+        <button
+          type="button"
+          data-testid="exec-search-btn"
+          onClick={ searchButtonClick }
+        >
+          SEARCH
+        </button>
+      </div>
     </form>
   );
 }
