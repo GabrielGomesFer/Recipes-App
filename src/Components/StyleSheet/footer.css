@@ -1,6 +1,14 @@
-footer {
+.footer-container {
+  align-items: center;
+  background-color: rgb(221, 221, 221);
   bottom: 0;
+  display: flex;
+  justify-content: space-between;
   position: fixed;
   text-align: center;
-  width: 90%;
+  width: 100%;
+}
+
+.footer-container button {
+  margin: 7px;
 }

@@ -1,5 +1,6 @@
 .header-container, .navigation-container {
   align-items: center;
+  background-color: rgb(221, 221, 221);
   display: flex;
 }
 
