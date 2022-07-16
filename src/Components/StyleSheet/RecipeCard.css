@@ -1,0 +1,23 @@
+.recipe-card {
+  background-color: rgb(139, 139, 139);
+  border-radius: 8px;
+  flex-basis: 48%;
+  height: 220px;
+  margin: 10px 0;
+}
+
+.recipe-card div {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.recipe-card img {
+  border-radius: 8px 8px 0 0;
+  width: 100%;
+}
+
+.recipe-card h5 {
+  color: white;
+  margin: 7px 0 0;
+}
