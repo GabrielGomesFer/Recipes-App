@@ -45,7 +45,7 @@ function Header({ headerText, isSearchPage }) {
       }
       {
         isOpen && (
-          <SearchBar />
+          <SearchBar recipeType={ headerText } />
         )
       }
     </header>
