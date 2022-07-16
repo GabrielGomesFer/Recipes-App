@@ -23,8 +23,16 @@ function App() {
           <RecipeInProgress { ...props } />
         ) }
       />
-      <Route path="/drinks/:id" render={ (props) => <RecipeDetails { ...props } /> } />
-      <Route path="/foods/:id" render={ (props) => <RecipeDetails { ...props } /> } />
+      <Route
+        exact
+        path="/drinks/:id"
+        render={ (props) => <RecipeDetails { ...props } /> }
+      />
+      <Route
+        exact
+        path="/foods/:id"
+        render={ (props) => <RecipeDetails { ...props } /> }
+      />
       <Route path="/done-recipes" component={ DoneRecipes } />
       <Route path="/favorite-recipes" component={ FavoriteRecipes } />
       <Route path="/profile" component={ Profile } />
