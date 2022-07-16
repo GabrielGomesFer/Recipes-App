@@ -1,0 +1,23 @@
+.header-container, .navigation-container {
+  align-items: center;
+  display: flex;
+}
+
+.header-container {
+  flex-direction: column;
+}
+
+.navigation-container {
+  justify-content: space-between;
+  width: 100%;
+}
+
+.navigation-container button {
+  margin: 7px;
+}
+
+.ghost-element {
+  height: 30px;
+  margin: 7px;
+  width: 50px;
+}
