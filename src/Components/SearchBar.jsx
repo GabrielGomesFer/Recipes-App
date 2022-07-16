@@ -11,7 +11,7 @@ function SearchBar({ recipeType }) {
     searchType: '',
   });
 
-  const { setRecipes } = useContext(RecipesContext);
+  const { setRecipes, setIsLoading } = useContext(RecipesContext);
 
   const history = useHistory();
 
@@ -42,11 +42,13 @@ function SearchBar({ recipeType }) {
   };
 
   const getRecipes = async (url) => {
+    setIsLoading(true);
     const response = await fetchAPIs(url);
     const isEmpty = verifyApiReturn(response);
     if (!isEmpty) {
       const recipes = [...Object.values(response)[0]];
       setRecipes(recipes);
+      setIsLoading(false);
       redirectIfOneRecipe(recipes);
     }
   };
