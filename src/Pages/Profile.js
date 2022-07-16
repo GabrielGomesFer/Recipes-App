@@ -8,6 +8,9 @@ function Profile() {
   const history = useHistory();
 
   const getEmail = () => {
+    if (!JSON.parse(localStorage.getItem('user'))) {
+      localStorage.setItem('user', JSON.stringify({ email: '' }));
+    }
     const user = JSON.parse(localStorage.getItem('user'));
     console.log(user.email);
     setEmailProfile(user.email);

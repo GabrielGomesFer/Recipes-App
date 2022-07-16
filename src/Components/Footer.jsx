@@ -16,16 +16,14 @@ function Footer() {
       <button
         type="button"
         onClick={ () => redirectToPage('foods') }
-        data-testid="food-bottom-btn"
       >
-        <img src={ mealIcon } alt="Meal Icon" />
+        <img data-testid="food-bottom-btn" src={ mealIcon } alt="Meal Icon" />
       </button>
       <button
         type="button"
         onClick={ () => redirectToPage('drinks') }
-        data-testid="drinks-bottom-btn"
       >
-        <img src={ drinkIcon } alt="Drink Icon" />
+        <img data-testid="drinks-bottom-btn" src={ drinkIcon } alt="Drink Icon" />
       </button>
     </footer>
 
