@@ -1,0 +1,23 @@
+.main-container-profile {
+  height: 100vh;
+}
+
+.container-profile-content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.container-profile-content h4 {
+  margin: 20px;
+}
+
+.nav-container-profile-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-container-profile-buttons button {
+  margin: 10px;
+  padding: 8px 24px;
+}
