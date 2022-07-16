@@ -3,7 +3,9 @@ import Header from '../Components/Header';
 
 function DoneRecipes() {
   return (
-    <Header headerText="Done Recipes" isSearchPage={ false } />
+    <div>
+      <Header headerText="Done Recipes" isSearchPage={ false } />
+    </div>
   );
 }
 
