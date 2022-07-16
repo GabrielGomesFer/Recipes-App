@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../Components/Header';
-import RecipeCard from '../Components/RecipeCards';
+import RecipeCard from '../Components/RecipeCard';
 import RecipesContext from '../Context/recipesContext';
 import Footer from '../Components/Footer';
 import fetchAPIs from '../services/FetchAPI';
+import './StyleSheet/Search.css';
 
 function Search({ history: { location: { pathname } } }) {
   const [recipeType, setRecipeType] = useState('');
@@ -34,7 +35,7 @@ function Search({ history: { location: { pathname } } }) {
   return (
     <main>
       <Header headerText={ recipeType } isSearchPage />
-      <section>
+      <section className="recipes-container">
         {
           recipes.length > 0 && recipes.map((recipe, index) => {
             if (index < MAX_LENGTH_CARDS) {
