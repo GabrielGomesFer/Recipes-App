@@ -1,0 +1,20 @@
+.form-container-search {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.input-search {
+  margin: 5px;
+}
+
+.form-radio-contaniner {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 5px;
+}
+
+.form-radio-contaniner label {
+  margin: 0 5px 0 0;
+}

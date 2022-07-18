@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import './StyleSheet/RecipeCard.css';
 
 function RecipeCard({ recipeId, recipeImage, recipeName, recipeType, index }) {
   return (
     <Link
       to={ recipeType === 'Foods' ? `/foods/${recipeId}` : `/drinks/${recipeId}` }
       data-testid={ `${index}-recipe-card` }
+      className="recipe-card"
     >
       <div>
         <img
@@ -14,7 +16,7 @@ function RecipeCard({ recipeId, recipeImage, recipeName, recipeType, index }) {
           src={ recipeImage }
           alt={ `${recipeName}` }
         />
-        <p data-testid={ `${index}-card-name` }>{ recipeName }</p>
+        <h5 data-testid={ `${index}-card-name` }>{ recipeName }</h5>
       </div>
     </Link>
   );

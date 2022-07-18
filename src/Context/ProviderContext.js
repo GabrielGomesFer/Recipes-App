@@ -4,10 +4,13 @@ import RecipesContext from './recipesContext';
 
 function ProviderContext({ children }) {
   const [recipes, setRecipes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const valueContext = {
     recipes,
     setRecipes,
+    isLoading,
+    setIsLoading,
   };
 
   return (

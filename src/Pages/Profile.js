@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
+import './StyleSheet/Profile.css';
 
 function Profile() {
   const [emailProfile, setEmailProfile] = useState('');
@@ -12,7 +13,6 @@ function Profile() {
       localStorage.setItem('user', JSON.stringify({ email: '' }));
     }
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user.email);
     setEmailProfile(user.email);
   };
 
@@ -30,32 +30,36 @@ function Profile() {
   };
 
   return (
-    <div>
+    <main className="main-container-profile">
       <Header headerText="Profile" isSearchPage={ false } />
-      <h1 data-testid="profile-email">{ emailProfile }</h1>
-      <button
-        type="button"
-        onClick={ () => redirectToPage('done-recipes') }
-        data-testid="profile-done-btn"
-      >
-        Done Recipes
-      </button>
-      <button
-        type="button"
-        onClick={ () => redirectToPage('favorite-recipes') }
-        data-testid="profile-favorite-btn"
-      >
-        Favorite Recipes
-      </button>
-      <button
-        type="button"
-        onClick={ logOut }
-        data-testid="profile-logout-btn"
-      >
-        Logout
-      </button>
+      <section className="container-profile-content">
+        <h4 data-testid="profile-email">{ emailProfile }</h4>
+        <div className="nav-container-profile-buttons">
+          <button
+            type="button"
+            onClick={ () => redirectToPage('done-recipes') }
+            data-testid="profile-done-btn"
+          >
+            Done Recipes
+          </button>
+          <button
+            type="button"
+            onClick={ () => redirectToPage('favorite-recipes') }
+            data-testid="profile-favorite-btn"
+          >
+            Favorite Recipes
+          </button>
+          <button
+            type="button"
+            onClick={ logOut }
+            data-testid="profile-logout-btn"
+          >
+            Logout
+          </button>
+        </div>
+      </section>
       <Footer />
-    </div>
+    </main>
   );
 }
 

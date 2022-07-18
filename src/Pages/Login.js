@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import './StyleSheet/Login.css';
 
 const Login = (props) => {
   const [isValid, setIsValid] = useState(false);
@@ -42,34 +43,39 @@ const Login = (props) => {
   }, [user, setIsValid]);
 
   return (
-    <div>
-      <input
-        type="text"
-        data-testid="email-input"
-        name="email"
-        id="user"
-        value={ user.email }
-        onChange={ onChangeHandler }
-      />
+    <main className="main-container-login">
+      <h4>App de Receitas - Login</h4>
+      <form className="form-container-login">
+        <input
+          type="text"
+          data-testid="email-input"
+          name="email"
+          id="user"
+          value={ user.email }
+          onChange={ onChangeHandler }
+          placeholder="seu@email.com"
+        />
 
-      <input
-        type="password"
-        data-testid="password-input"
-        name="password"
-        id="password"
-        value={ user.password }
-        onChange={ onChangeHandler }
-      />
+        <input
+          type="password"
+          data-testid="password-input"
+          name="password"
+          id="password"
+          value={ user.password }
+          onChange={ onChangeHandler }
+          placeholder="Digite sua senha"
+        />
 
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ !isValid }
-        onClick={ handleClick }
-      >
-        Login
-      </button>
-    </div>
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ !isValid }
+          onClick={ handleClick }
+        >
+          Login
+        </button>
+      </form>
+    </main>
   );
 };
 

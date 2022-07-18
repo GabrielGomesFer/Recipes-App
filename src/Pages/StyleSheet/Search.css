@@ -1,0 +1,12 @@
+.recipes-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 5px;
+  margin-bottom: 50px;
+}
+
+.loading-element {
+  margin: auto;
+}
+

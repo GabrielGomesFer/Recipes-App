@@ -12,7 +12,7 @@ function Footer() {
   };
 
   return (
-    <footer data-testid="footer">
+    <footer className="footer-container" data-testid="footer">
       <button
         type="button"
         onClick={ () => redirectToPage('foods') }
