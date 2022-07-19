@@ -5,6 +5,7 @@ import RecipeCard from '../Components/RecipeCard';
 import RecipesContext from '../Context/recipesContext';
 import Footer from '../Components/Footer';
 import fetchAPIs from '../services/FetchAPI';
+import ButtonFilters from '../Components/ButtonFilters';
 import './StyleSheet/Search.css';
 
 function Search({ history: { location: { pathname } } }) {
@@ -39,6 +40,7 @@ function Search({ history: { location: { pathname } } }) {
   return (
     <main>
       <Header headerText={ recipeType } isSearchPage />
+      <ButtonFilters recipeType={ recipeType } />
       <section className="recipes-container">
         {
           !isLoading ? recipes.map((recipe, index) => {
