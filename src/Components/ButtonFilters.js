@@ -6,8 +6,7 @@ import 'bootstrap';
 
 function ButtonFilters({ recipeType }) {
   const [categorys, setCategorys] = useState([]);
-  const [isFiltered, setIdFiltered] = useState(false);
-  const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const [currentFilter, setCurrentFilter] = useState('');
 
   const { setIsLoading, setRecipes } = useContext(RecipesContext);
 
@@ -31,29 +30,27 @@ function ButtonFilters({ recipeType }) {
     getCategorys();
   }, [recipeType, setIsLoading]);
 
-  useEffect(() => {
-
-  }, [filteredRecipes]);
-
   const handleClick = async ({ target: { innerText } }) => {
-    if (innerText === 'All') {
+    if (innerText === 'All' || innerText === currentFilter) {
       setIsLoading(true);
+      setCurrentFilter('All');
       const url = recipeType === 'Foods'
         ? 'https://www.themealdb.com/api/json/v1/1/search.php?s='
         : 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
       const data = await fetchAPIs(url);
       const responseRecipes = [...Object.values(data)[0]];
-      setFilteredRecipes(responseRecipes);
+      setRecipes(responseRecipes);
       setIsLoading(false);
     }
-    if (innerText !== 'All') {
+    if (innerText !== 'All' && innerText !== currentFilter) {
+      setCurrentFilter(innerText);
       setIsLoading(true);
       const url = recipeType === 'Foods'
         ? `https://www.themealdb.com/api/json/v1/1/filter.php?c=${innerText}`
         : `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${innerText}`;
       const data = await fetchAPIs(url);
       const responseRecipes = [...Object.values(data)[0]];
-      setFilteredRecipes(responseRecipes);
+      setRecipes(responseRecipes);
       setIsLoading(false);
     }
   };
@@ -87,12 +84,6 @@ function ButtonFilters({ recipeType }) {
           return null;
         })
       }
-      <label
-        htmlFor="active-filter"
-      >
-        <input type="checkbox" id="active-filter" />
-        Ativar filtros
-      </label>
     </section>
   );
 }
