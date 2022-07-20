@@ -19,7 +19,7 @@ function RecipeDetails({ history: { location: { pathname } } }) {
       }
       if (pathname.includes('/drinks')) {
         const returnedRecipe = await fetchAPIs(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${params.id}`);
-        setDetailedRecipe(returnedRecipe);
+        setDetailedRecipe(returnedRecipe.drinks);
       }
     };
     idFetch();
@@ -54,7 +54,7 @@ function RecipeDetails({ history: { location: { pathname } } }) {
             <span key={ `categor${i}` } data-testid="recipe-category">
               { food.strCategory }
             </span>
-            <FavShareButton />
+            <FavShareButton pathname={ pathname } />
           </div>
         ))
       }
