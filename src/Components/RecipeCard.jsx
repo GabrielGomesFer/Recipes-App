@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './StyleSheet/RecipeCard.css';
 
-function RecipeCard({ recipeId, recipeImage, recipeName, recipeType, index }) {
+function RecipeCard({
+  recipeId, recipeImage, recipeName, recipeType, index, linkTestId }) {
   return (
     <Link
       to={ recipeType === 'Foods' ? `/foods/${recipeId}` : `/drinks/${recipeId}` }
-      data-testid={ `${index}-recipe-card` }
+      data-testid={ linkTestId }
       className="recipe-card"
     >
       <div>
@@ -28,6 +29,7 @@ RecipeCard.propTypes = {
   recipeImage: PropTypes.string.isRequired,
   recipeType: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  linkTestId: PropTypes.string.isRequired,
 };
 
 export default RecipeCard;
