@@ -48,6 +48,7 @@ function Search({ history: { location: { pathname } } }) {
               return (
                 <RecipeCard
                   key={ recipeType === 'Foods' ? recipe.idMeal : recipe.idDrink }
+                  linkTestId={ `${index}-recipe-card` }
                   index={ index }
                   recipeId={ recipeType === 'Foods' ? recipe.idMeal : recipe.idDrink }
                   recipeImage={ recipeType === 'Foods'
