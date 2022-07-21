@@ -7,7 +7,7 @@ function ShareButton({ pathname }) {
   const [coppied, setCoppied] = useState(false);
 
   const copyMessage = () => {
-    copy(`http://localhost:3000${pathname.replace('/in-progress', '')}`);
+    copy(`http://localhost:3000${pathname}`);
     setCoppied(true);
   };
 

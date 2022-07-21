@@ -18,6 +18,12 @@ describe('Testa a pagina de Login', () => {
 
 		expect(button).toBeDisabled();
 
+		userEvent.type(inputEmail, 'teste.com');
+		userEvent.type(inputPassword, '1234567');
+
+		expect(button).toBeDisabled();
+		
+
 		userEvent.type(inputEmail, 'teste@teste.com');
 		userEvent.type(inputPassword, '1234567');
 
@@ -26,6 +32,22 @@ describe('Testa a pagina de Login', () => {
 		userEvent.click(button);
 
 		expect(history.location.pathname).toBe('/foods');
+  })
+
+  it('Verifica se o e-mail é salvo na chave user e os tokens nas chaves mealsToken e cocktailsToken', () => {
+	renderWithRouter(<App />);
+
+	const button = screen.getByTestId('login-submit-btn');
+	userEvent.type(inputPassword, '1234567');
+	userEvent.type(inputEmail, 'teste@teste.com');
+	
+	userEvent.click(button);
+	const user = localStorage.getItem(user);
+	const mealsToken = localStorage.getItem(mealsToken);
+	const cocktailsToken = localStorage.getItem(cocktailsToken);
+	expect(user).toBe('teste@teste.com');
+	expect(cocktailsToken).toBe('1');
+	expect(mealsToken).toBe('1');
   })
 
 })

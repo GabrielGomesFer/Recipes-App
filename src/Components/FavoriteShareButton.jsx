@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 
-function ShareButton({ pathname }) {
+function FavoriteShareButton({ id, type }) {
   const [coppied, setCoppied] = useState(false);
 
-  const copyMessage = () => {
-    copy(`http://localhost:3000${pathname.replace('/in-progress', '')}`);
+  const FavCopyMessage = () => {
+    copy(`http://localhost:3000/${type}s/${id}`);
     setCoppied(true);
   };
 
@@ -15,7 +15,7 @@ function ShareButton({ pathname }) {
     <div>
       <button
         type="button"
-        onClick={ copyMessage }
+        onClick={ FavCopyMessage }
         data-testid="share-btn"
       >
         <img src={ shareIcon } alt="share icon" />
@@ -31,8 +31,9 @@ function ShareButton({ pathname }) {
   );
 }
 
-ShareButton.propTypes = {
-  pathname: PropTypes.string.isRequired,
+FavoriteShareButton.propTypes = {
+  id: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
-export default ShareButton;
+export default FavoriteShareButton;
