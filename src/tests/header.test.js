@@ -1,10 +1,11 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import renderWithRouter from './helper/renderWithRouter';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 
 describe('Testa a página de Login', () => {
+
   it('Verifica se a pagina é redirecionada ao PROFILE ao clicar na imagem de perfil', () => {
 		const { history } = renderWithRouter(<App />)
         history.push('/foods')
@@ -45,7 +46,5 @@ describe('Testa a página de Login', () => {
     expect(radio2).not.toBeInTheDocument();
     expect(radio3).not.toBeInTheDocument();
     expect(execSearchBtn).not.toBeInTheDocument();
-})
-
-
-})
+  });
+});
