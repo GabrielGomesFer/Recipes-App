@@ -10,10 +10,10 @@ function FavoriteCard({
   console.log(
     favorites, index, alcoholic, category, id, image, name, nationality, type,
   );
-  const redirectToRecipe = () => {
-    const { history } = props;
-    history.push(`http://localhost:3000/${type}s/${id}`);
-  };
+  // const redirectToRecipe = () => {
+  //   const { history } = props;
+  //   history.push(`http://localhost:3000/${type}s/${id}`);
+  // };
 
   return (
     <div>
