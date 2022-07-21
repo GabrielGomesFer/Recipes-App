@@ -77,59 +77,62 @@ function SearchBar({ recipeType }) {
 
   return (
     <form className="form-container-search">
-      <input
-        type="text"
-        id="input-search"
-        name="textValue"
-        value={ inputSearch.textValue }
-        onChange={ inputSearchChanges }
-        data-testid="search-input"
-        placeholder="Buscar por"
-        className="input-search"
-      />
-      <div className="form-radio-contaniner">
-        <div>
-          <label htmlFor="ingredient">
-            <input
-              type="radio"
-              id="ingredient"
-              name="searchType"
-              value="i="
-              onChange={ inputSearchChanges }
-              data-testid="ingredient-search-radio"
-            />
-            Ingredient
-          </label>
-          <label htmlFor="name">
-            <input
-              type="radio"
-              id="name"
-              name="searchType"
-              value="s="
-              onChange={ inputSearchChanges }
-              data-testid="name-search-radio"
-            />
-            Name
-          </label>
-          <label htmlFor="firstLetter">
-            <input
-              type="radio"
-              id="firstLetter"
-              name="searchType"
-              value="f="
-              onChange={ inputSearchChanges }
-              data-testid="first-letter-search-radio"
-            />
-            First letter
-          </label>
-        </div>
+      <div
+        className="input-search-div"
+      >
+        <input
+          type="text"
+          id="input-search"
+          name="textValue"
+          value={ inputSearch.textValue }
+          onChange={ inputSearchChanges }
+          data-testid="search-input"
+          placeholder="Buscar por"
+          className="input-search"
+        />
         <button
+          className="searchbar-bttn"
           type="button"
           data-testid="exec-search-btn"
           onClick={ searchButtonClick }
         >
           SEARCH
         </button>
+      </div>
+      <div className="form-radio-contaniner">
+        <label htmlFor="ingredient">
+          <input
+            type="radio"
+            id="ingredient"
+            name="searchType"
+            value="i="
+            onChange={ inputSearchChanges }
+            data-testid="ingredient-search-radio"
+          />
+          Ingredient
+        </label>
+        <label htmlFor="name">
+          <input
+            type="radio"
+            id="name"
+            name="searchType"
+            value="s="
+            onChange={ inputSearchChanges }
+            data-testid="name-search-radio"
+          />
+          Name
+        </label>
+        <label htmlFor="firstLetter">
+          <input
+            type="radio"
+            id="firstLetter"
+            name="searchType"
+            value="f="
+            onChange={ inputSearchChanges }
+            data-testid="first-letter-search-radio"
+          />
+          First letter
+        </label>
       </div>
     </form>
   );

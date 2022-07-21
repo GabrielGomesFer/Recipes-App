@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ShareButton from './ShareButton';
@@ -19,6 +19,8 @@ function HorizontalRecipeCard({
   // favorites,
   pathname,
 }) {
+  useEffect(() => console.log(alcoholicOrNot), [alcoholicOrNot]);
+
   return (
     <div className="card-container">
       <div className="image-container">
@@ -43,31 +45,32 @@ function HorizontalRecipeCard({
           )
         }
         <Link to={ `/${type}s/${id}` }>
-          <h3 data-testid={ `${index}-horizontal-name` }>
+          <h5 data-testid={ `${index}-horizontal-name` }>
             { name }
-          </h3>
+          </h5>
         </Link>
         {
-          pathname === '/done-recipes' ? (
-            <h5
-              data-testid={ `${index}-horizontal-done-date` }
-            >
-              {`Done in: ${doneDate}`}
-
-            </h5>
-          ) : (
+          pathname === '/done-recipes' && (
             <div>
-              {
-                tags.map((tag) => (
-                  <h5
-                    data-testid={ `${index}-${tag}-horizontal-tag` }
-                    key={ tag }
-                  >
-                    { tag }
+              <h5
+                data-testid={ `${index}-horizontal-done-date` }
+              >
+                {`Done in: ${doneDate}`}
 
-                  </h5>
-                ))
-              }
+              </h5>
+              <div>
+                {
+                  tags.map((tag) => (
+                    <h5
+                      data-testid={ `${index}-${tag}-horizontal-tag` }
+                      key={ tag }
+                    >
+                      { tag }
+
+                    </h5>
+                  ))
+                }
+              </div>
             </div>
           )
         }

@@ -27,7 +27,7 @@ function FavoriteRecipes({ history: { location: { pathname } } }) {
             key={ index }
             favorites={ favorites }
             index={ index }
-            alcoholic={ recipe.alcoholicOrNot }
+            alcoholicOrNot={ recipe.alcoholicOrNot }
             category={ recipe.category }
             id={ recipe.id }
             image={ recipe.image }

@@ -66,10 +66,9 @@ function FavoriteButton({ recipe, recipeType, recipeId, index, pathname }) {
           src={ isFavorite
             ? blackHeartIcon : whiteHeartIcon }
           alt="Heart Icon"
-          // data-testid="favorite-btn"
           data-testid={
             pathname.includes('recipes') ? (
-              `${index}-horizontal-share-btn`
+              `${index}-horizontal-favorite-btn`
             ) : ('favorite-btn')
           }
         />

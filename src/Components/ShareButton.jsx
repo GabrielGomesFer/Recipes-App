@@ -7,11 +7,8 @@ function ShareButton({ pathname, type, id, index }) {
   const [coppied, setCoppied] = useState(false);
 
   const copyMessage = () => {
-    console.log('type:', type, '', 'id:', id);
     if (pathname.includes('recipes')) {
       copy(`http://localhost:3000/${type}s/${id}`);
-      console.log(pathname);
-      console.log('type:', type, '', 'id:', id);
     } else {
       copy(`http://localhost:3000${pathname.replace('/in-progress', '')}`);
     }
@@ -23,9 +20,14 @@ function ShareButton({ pathname, type, id, index }) {
       <button
         type="button"
         onClick={ copyMessage }
-        data-testid={ `${index}-horizontal-share-btn` }
       >
-        <img src={ shareIcon } alt="share icon" />
+        <img
+          src={ shareIcon }
+          alt="share icon"
+          data-testid={ pathname.includes('recipes') ? (
+            `${index}-horizontal-share-btn`
+          ) : ('share-btn') }
+        />
       </button>
       {
         coppied && (

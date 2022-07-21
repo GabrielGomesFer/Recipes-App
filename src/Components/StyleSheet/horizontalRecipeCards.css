@@ -1,8 +1,9 @@
 .card-container {
+  background-color: rgba(92, 89, 89, 0.291);
   border: 1px solid black;
   border-radius: 13px;
   display: flex;
-  height: 162px;
+  height: max-content;
   margin: 15px;
 }
 
