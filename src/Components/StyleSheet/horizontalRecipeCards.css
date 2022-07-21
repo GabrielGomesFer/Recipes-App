@@ -1,0 +1,14 @@
+.card-container {
+  border: 1px solid black;
+  border-radius: 13px;
+  display: flex;
+  height: 162px;
+  margin: 15px;
+}
+
+.image-container img {
+  border-radius: 13px;
+  margin: 5px;
+  width: 150px;
+}
+

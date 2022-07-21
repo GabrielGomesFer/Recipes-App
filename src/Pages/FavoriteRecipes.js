@@ -1,23 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import RecipesContext from '../Context/recipesContext';
 import Header from '../Components/Header';
-import FavoriteCard from '../Components/FavoriteCard';
-import FavoriteFilter from '../Components/FavoriteFilter';
+import HorizontalRecipeCard from '../Components/HorizontalRecipeCard';
+import ProfileRecipeFilter from '../Components/ProfileRecipeFilter';
 
-function FavoriteRecipes() {
-  const [favorites, setFavorites] = useState([]);
+function FavoriteRecipes({ history: { location: { pathname } } }) {
+  const { favorites, setFavorites } = useContext(RecipesContext);
 
   useEffect(() => {
     const currentFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     setFavorites(currentFavorites);
-  }, []);
+  }, [setFavorites]);
   return (
     <div>
       <Header headerText="Favorite Recipes" isSearchPage={ false } />
 
-      <FavoriteFilter favorites={ favorites } setFavorites={ setFavorites } />
+      <ProfileRecipeFilter
+        profileRecipes={ favorites }
+        setRecipes={ setFavorites }
+        storageKey="favoriteRecipes"
+      />
       {
         favorites && favorites.map((recipe, index) => (
-          <FavoriteCard
+          <HorizontalRecipeCard
             key={ index }
             favorites={ favorites }
             index={ index }
@@ -28,11 +34,21 @@ function FavoriteRecipes() {
             name={ recipe.name }
             nationality={ recipe.nationality }
             type={ recipe.type }
+            pathname={ pathname }
           />
         ))
       }
     </div>
   );
 }
+
+FavoriteRecipes.propTypes = {
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      pathname: PropTypes.string.isRequired,
+    }).isRequired,
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default FavoriteRecipes;

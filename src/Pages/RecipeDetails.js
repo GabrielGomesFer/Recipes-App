@@ -88,6 +88,12 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
     const currentDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
 
     const COMPARATION_DATE = 10;
+
+    const formatedDay = day >= COMPARATION_DATE
+      ? day : `0${day}`;
+    const formatedMonth = month >= COMPARATION_DATE
+      ? month : `0${month}`;
+
     const finishedRecipe = {
       id: recipeType === 'food' ? detailedRecipe.idMeal : detailedRecipe.idDrink,
       type: recipeType,
@@ -97,8 +103,7 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
       name: recipeType === 'food' ? detailedRecipe.strMeal : detailedRecipe.strDrink,
       image: recipeType === 'food'
         ? detailedRecipe.strMealThumb : detailedRecipe.strDrinkThumb,
-      doneDate: day >= COMPARATION_DATE
-        ? `${day}/${month}/${year}` : `0${day}/${month}/${year}`,
+      doneDate: `${formatedDay}/${formatedMonth}/${year}`,
       tags: tags || [],
     };
 
@@ -137,6 +142,7 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
                   recipeId={ id }
                   recipe={ detailedRecipe }
                   recipeType={ recipeType }
+                  pathname={ pathname }
                 />
               </div>
             </header>

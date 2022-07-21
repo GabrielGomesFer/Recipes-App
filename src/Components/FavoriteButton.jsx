@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import RecipesContext from '../Context/recipesContext';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-function FavoriteButton({ recipe, recipeType, recipeId }) {
+function FavoriteButton({ recipe, recipeType, recipeId, index, pathname }) {
+  const { setFavorites } = useContext(RecipesContext);
   const [isFavorite, setIsFavorite] = useState(false);
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
@@ -32,6 +34,7 @@ function FavoriteButton({ recipe, recipeType, recipeId }) {
       .filter((favorite) => favorite.id !== recipeId);
     localStorage.setItem('favoriteRecipes', JSON.stringify(updatedFavorites));
     setFavoriteRecipes(updatedFavorites);
+    setFavorites(updatedFavorites);
   };
 
   const favoriteClick = () => {
@@ -63,7 +66,12 @@ function FavoriteButton({ recipe, recipeType, recipeId }) {
           src={ isFavorite
             ? blackHeartIcon : whiteHeartIcon }
           alt="Heart Icon"
-          data-testid="favorite-btn"
+          // data-testid="favorite-btn"
+          data-testid={
+            pathname.includes('recipes') ? (
+              `${index}-horizontal-share-btn`
+            ) : ('favorite-btn')
+          }
         />
       </button>
     </div>
@@ -71,9 +79,17 @@ function FavoriteButton({ recipe, recipeType, recipeId }) {
 }
 
 FavoriteButton.propTypes = {
-  recipe: PropTypes.objectOf(PropTypes.string).isRequired,
-  recipeType: PropTypes.string.isRequired,
+  recipe: PropTypes.objectOf(PropTypes.string),
+  recipeType: PropTypes.string,
   recipeId: PropTypes.string.isRequired,
+  index: PropTypes.number,
+  pathname: PropTypes.string.isRequired,
+};
+
+FavoriteButton.defaultProps = {
+  index: 0,
+  recipeType: '',
+  recipe: {},
 };
 
 export default FavoriteButton;

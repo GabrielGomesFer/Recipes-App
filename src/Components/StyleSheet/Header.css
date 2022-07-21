@@ -1,11 +1,19 @@
 .header-container, .navigation-container {
   align-items: center;
-  background-color: rgb(221, 221, 221);
+  background-color: black;
+  color: white;
   display: flex;
 }
 
 .header-container {
   flex-direction: column;
+}
+
+.profile-bttn {
+  background-color: rgb(194, 84, 84);
+  border: none;
+  border-radius: 30%;
+  color: white;
 }
 
 .navigation-container {

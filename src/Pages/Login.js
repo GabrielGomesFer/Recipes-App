@@ -44,7 +44,7 @@ const Login = (props) => {
 
   return (
     <main className="main-container-login">
-      <h4>App de Receitas - Login</h4>
+      <h4>Login</h4>
       <form className="form-container-login">
         <input
           type="text"
