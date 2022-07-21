@@ -9,7 +9,6 @@ function FavoriteRecipes() {
   useEffect(() => {
     const currentFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     setFavorites(currentFavorites);
-    /*  console.log(favorites); */
   }, []);
   return (
     <div>
@@ -17,7 +16,7 @@ function FavoriteRecipes() {
 
       <FavoriteFilter favorites={ favorites } setFavorites={ setFavorites } />
       {
-        favorites.map((recipe, index) => (
+        favorites && favorites.map((recipe, index) => (
           <FavoriteCard
             key={ index }
             favorites={ favorites }
@@ -30,7 +29,6 @@ function FavoriteRecipes() {
             nationality={ recipe.nationality }
             type={ recipe.type }
           />
-
         ))
       }
     </div>

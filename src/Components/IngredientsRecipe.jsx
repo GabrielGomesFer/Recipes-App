@@ -82,7 +82,6 @@ function IngredientsRecipe({ recipe, isStarted, recipeType, recipeId }) {
       saveProgress(name, 'save');
     } else {
       saveProgress(name, 'delete');
-      console.log('delete');
     }
   };
 
