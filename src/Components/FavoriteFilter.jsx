@@ -21,7 +21,7 @@ function FavoriteFilter({ favorites, setFavorites }) {
 
   useEffect(() => {
     console.log('favorite filter', favorites);
-  }, []);
+  }, [favorites]);
 
   return (
     <div>
