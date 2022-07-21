@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 function IngredientsRecipe({ recipe, isStarted, recipeType, recipeId }) {
   const [ingredients, setIngredients] = useState([]);
   const [progressType, setProgressType] = useState('');
-  const [progressRecipe, setProgressRecipe] = useState([]);
+  const [progressRecipe, setProgressRecipe] = useState([[]]);
 
   useEffect(() => {
     if (!JSON.parse(localStorage.getItem('inProgressRecipes'))) {
@@ -21,7 +21,7 @@ function IngredientsRecipe({ recipe, isStarted, recipeType, recipeId }) {
       const progress = recipesInProgress
         .filter((recipeInProgress) => recipeInProgress[0] === recipeId)
         .map((recipeIngredients) => recipeIngredients[1]);
-      setProgressRecipe(progress ? [...progress] : []);
+      setProgressRecipe(progress[0] ? [...progress[0]] : []);
     } else {
       setProgressType('cocktails');
       const recipesInProgress = Object
@@ -30,7 +30,7 @@ function IngredientsRecipe({ recipe, isStarted, recipeType, recipeId }) {
         .filter((recipeInProgress) => recipeInProgress[0] === recipeId)
         .map((recipeIngredients) => recipeIngredients[1]);
       console.log(progress);
-      setProgressRecipe(progress ? [...progress] : []);
+      setProgressRecipe(progress[0] ? [...progress[0]] : []);
     }
 
     const ingredientsList = Object.entries(recipe)
