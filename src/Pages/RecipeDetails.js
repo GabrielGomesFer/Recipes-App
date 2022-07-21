@@ -12,10 +12,11 @@ import './StyleSheet/RecipeDetails.css';
 function RecipeDetails({ history: { location: { pathname }, push } }) {
   const [detailedRecipe, setDetailedRecipe] = useState({});
   const [recipeType, setRecipeType] = useState('');
-  const [finishedRecipe, setFinishedRecipe] = useState(false);
+  const [isFinishedRecipe, setIsFinishedRecipe] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [recomendation, setRecomendation] = useState([]);
   const [isInProgress, setIsInProgress] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
   const { id } = useParams(); // hook usado para pegar parametros passados via url;
 
   const { isStarted, setIsStarted } = useContext(RecipesContext);
@@ -60,7 +61,7 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
     if (doneRecipes.some(({ id: doneId }) => id === doneId)) {
-      setFinishedRecipe(true);
+      setIsFinishedRecipe(true);
     }
     if (recipeType === 'food' && inProgressRecipes.meals) {
       const inProgressIds = Object.keys(inProgressRecipes.meals);
@@ -75,6 +76,36 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
   const handleClick = () => {
     setIsStarted(true);
     push(`/${recipeType}s/${id}/in-progress`);
+  };
+
+  const handleFinishRecipe = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const tags = Array.isArray(detailedRecipe.strTags)
+      ? [...detailedRecipe.strTags] : [detailedRecipe.strTags];
+    const currentDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+
+    const COMPARATION_DATE = 10;
+    const finishedRecipe = {
+      id: recipeType === 'food' ? detailedRecipe.idMeal : detailedRecipe.idDrink,
+      type: recipeType,
+      nationality: recipeType === 'food' ? detailedRecipe.strArea : '',
+      category: detailedRecipe.strCategory,
+      alcoholicOrNot: recipeType === 'food' ? '' : detailedRecipe.strAlcoholic,
+      name: recipeType === 'food' ? detailedRecipe.strMeal : detailedRecipe.strDrink,
+      image: recipeType === 'food'
+        ? detailedRecipe.strMealThumb : detailedRecipe.strDrinkThumb,
+      doneDate: day >= COMPARATION_DATE
+        ? `${day}/${month}/${year}` : `0${day}/${month}/${year}`,
+      tags: tags || [],
+    };
+
+    localStorage
+      .setItem('doneRecipes', JSON.stringify([...currentDoneRecipes, finishedRecipe]));
+
+    push('/done-recipes');
   };
 
   const MAX_LENGTH_RECOMENDATION = 6;
@@ -114,6 +145,7 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
               recipe={ detailedRecipe }
               isStarted={ isStarted }
               recipeId={ id }
+              setIsDisabled={ setIsDisabled }
             />
             <section>
               <p data-testid="instructions">{ strInstructions }</p>
@@ -154,7 +186,7 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
               }
             </section>
             {
-              !finishedRecipe && (
+              !isFinishedRecipe && (
                 <div>
                   {
                     !isStarted ? (
@@ -173,6 +205,8 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
                       <button
                         type="button"
                         data-testid="finish-recipe-btn"
+                        disabled={ isDisabled }
+                        onClick={ handleFinishRecipe }
                       >
                         Finish Recipe
 

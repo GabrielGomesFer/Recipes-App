@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-function IngredientsRecipe({ recipe, isStarted, recipeType, recipeId }) {
+function IngredientsRecipe({ recipe, isStarted, recipeType, recipeId, setIsDisabled }) {
   const [ingredients, setIngredients] = useState([]);
   const [progressType, setProgressType] = useState('');
-  const [progressRecipe, setProgressRecipe] = useState([[]]);
+  const [progressRecipe, setProgressRecipe] = useState([]);
 
   useEffect(() => {
     if (!JSON.parse(localStorage.getItem('inProgressRecipes'))) {
@@ -85,6 +85,14 @@ function IngredientsRecipe({ recipe, isStarted, recipeType, recipeId }) {
     }
   };
 
+  useEffect(() => {
+    if (progressRecipe.length === ingredients.length) {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
+  }, [progressRecipe, setIsDisabled, ingredients]);
+
   return (
     <section>
       <h1>Ingredients</h1>
@@ -130,6 +138,7 @@ IngredientsRecipe.propTypes = {
   isStarted: PropTypes.bool.isRequired,
   recipeId: PropTypes.string.isRequired,
   recipeType: PropTypes.string.isRequired,
+  setIsDisabled: PropTypes.func.isRequired,
 };
 
 export default IngredientsRecipe;
