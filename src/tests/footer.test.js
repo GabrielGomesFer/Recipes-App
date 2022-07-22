@@ -10,6 +10,7 @@ describe('Testa Footer', () => {
     history.push('/foods');
 
     const drinkButton = screen.getByTestId('drinks-bottom-btn');
+    const foodButton = screen.getByTestId('food-bottom-btn');
     
     expect(foodButton).toBeInTheDocument();
     expect(drinkButton).toBeInTheDocument();
@@ -17,14 +18,9 @@ describe('Testa Footer', () => {
     userEvent.click(drinkButton);
     
     expect(history.location.pathname).toBe('/drinks');
-    
-    const foodButton = screen.getByTestId('food-bottom-btn');
         
     userEvent.click(foodButton);
 
     expect(history.location.pathname).toBe('/foods');
-
-})
-
-
+  })
 })

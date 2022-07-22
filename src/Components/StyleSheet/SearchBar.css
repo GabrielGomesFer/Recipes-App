@@ -4,15 +4,40 @@
   width: 100%;
 }
 
+.input-search-div {
+  align-content: space-between;
+  display: flex;
+  flex-direction: row;
+}
+
 .input-search {
+  border-radius: 20px;
+  height: 30px;
   margin: 5px;
+  margin-left: 10px;
+  margin-right: 5px;
+  width: 300px;
 }
 
 .form-radio-contaniner {
-  align-items: center;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   margin: 5px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.searchbar-bttn {
+  background-color: black;
+
+  /*   border-color: white; */
+  border-radius: 20px;
+  color: white;
+  height: 30px;
+  margin-right: 10px;
+  margin-top: 6px;
+  width: 100px;
 }
 
 .form-radio-contaniner label {

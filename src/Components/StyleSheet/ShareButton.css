@@ -1,0 +1,9 @@
+.share-bttn {
+  background-color: black;
+  border: none;
+  margin-right: 15px;
+}
+
+.share-bttn img {
+  filter: invert();
+}

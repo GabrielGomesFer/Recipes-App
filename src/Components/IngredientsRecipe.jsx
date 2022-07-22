@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import './StyleSheet/IngredientsRecipe.css';
 
-function IngredientsRecipe({ recipe, isStarted, recipeType, recipeId }) {
+function IngredientsRecipe({ recipe, isStarted, recipeType, recipeId, setIsDisabled }) {
   const [ingredients, setIngredients] = useState([]);
   const [progressType, setProgressType] = useState('');
-  const [progressRecipe, setProgressRecipe] = useState([[]]);
+  const [progressRecipe, setProgressRecipe] = useState([]);
 
   useEffect(() => {
     if (!JSON.parse(localStorage.getItem('inProgressRecipes'))) {
@@ -82,13 +83,22 @@ function IngredientsRecipe({ recipe, isStarted, recipeType, recipeId }) {
       saveProgress(name, 'save');
     } else {
       saveProgress(name, 'delete');
-      console.log('delete');
     }
   };
 
+  useEffect(() => {
+    if (progressRecipe.length === ingredients.length) {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
+  }, [progressRecipe, setIsDisabled, ingredients]);
+
   return (
-    <section>
-      <h1>Ingredients</h1>
+    <section
+      className="ingredients-recipe-section"
+    >
+      <h4>Ingredients</h4>
       {
         isStarted ? ingredients.map((ingredient, index) => (
           <label
@@ -131,6 +141,7 @@ IngredientsRecipe.propTypes = {
   isStarted: PropTypes.bool.isRequired,
   recipeId: PropTypes.string.isRequired,
   recipeType: PropTypes.string.isRequired,
+  setIsDisabled: PropTypes.func.isRequired,
 };
 
 export default IngredientsRecipe;

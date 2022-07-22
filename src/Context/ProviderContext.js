@@ -6,6 +6,7 @@ function ProviderContext({ children }) {
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isStarted, setIsStarted] = useState(false);
+  const [favorites, setFavorites] = useState([]);
 
   const valueContext = {
     recipes,
@@ -14,6 +15,8 @@ function ProviderContext({ children }) {
     setIsLoading,
     isStarted,
     setIsStarted,
+    favorites,
+    setFavorites,
   };
 
   return (

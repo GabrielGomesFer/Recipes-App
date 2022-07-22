@@ -1,11 +1,37 @@
 .header-container, .navigation-container {
   align-items: center;
-  background-color: rgb(221, 221, 221);
+  background-color: black;
+  color: white;
   display: flex;
 }
 
+/* h2 {
+  font-size: large;
+  font-weight: 2000;
+} */
+
 .header-container {
   flex-direction: column;
+}
+
+.profile-bttn {
+  background-color: black;
+  border: none;
+  border-radius: 30%;
+}
+
+.profile-bttn img {
+  filter: invert();
+}
+
+.search-bttn {
+  background-color: black;
+  border: none;
+  border-radius: 30%;
+}
+
+.search-bttn img {
+  filter: invert();
 }
 
 .navigation-container {

@@ -1,0 +1,14 @@
+.all-bttn {
+  background-color: black;
+  border-radius: 15px;
+  color: white;
+  margin-left: 1px;
+}
+
+.filter-bttn {
+  align-items: baseline;
+  background-color: black;
+  border-radius: 15px;
+  color: white;
+  margin: 1px;
+}

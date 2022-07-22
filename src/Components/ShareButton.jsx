@@ -2,23 +2,34 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
+import './StyleSheet/ShareButton.css';
 
-function ShareButton({ pathname }) {
+function ShareButton({ pathname, type, id, index }) {
   const [coppied, setCoppied] = useState(false);
 
   const copyMessage = () => {
-    copy(`http://localhost:3000${pathname.replace('/in-progress', '')}`);
+    if (pathname.includes('recipes')) {
+      copy(`http://localhost:3000/${type}s/${id}`);
+    } else {
+      copy(`http://localhost:3000${pathname.replace('/in-progress', '')}`);
+    }
     setCoppied(true);
   };
 
   return (
     <div>
       <button
+        className="share-bttn"
         type="button"
         onClick={ copyMessage }
-        data-testid="share-btn"
       >
-        <img src={ shareIcon } alt="share icon" />
+        <img
+          src={ shareIcon }
+          alt="share icon"
+          data-testid={ pathname.includes('recipes') ? (
+            `${index}-horizontal-share-btn`
+          ) : ('share-btn') }
+        />
       </button>
       {
         coppied && (
@@ -33,6 +44,14 @@ function ShareButton({ pathname }) {
 
 ShareButton.propTypes = {
   pathname: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  type: PropTypes.string,
+  index: PropTypes.number.isRequired,
+};
+
+ShareButton.defaultProps = {
+  id: '',
+  type: '',
 };
 
 export default ShareButton;

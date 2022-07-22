@@ -1,0 +1,9 @@
+.favorite-bttn {
+  background-color: black;
+  border: none;
+  margin-left: 15px;
+}
+
+.favorite-bttn img {
+  filter: invert();
+}

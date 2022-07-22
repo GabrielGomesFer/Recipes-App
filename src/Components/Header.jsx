@@ -26,7 +26,11 @@ function Header({ headerText, isSearchPage }) {
   return (
     <header className="header-container">
       <nav className="navigation-container">
-        <button type="button" onClick={ redirectToProfilePage }>
+        <button
+          className="profile-bttn"
+          type="button"
+          onClick={ redirectToProfilePage }
+        >
           <img
             src={ profileIcon }
             alt="profile-img"
@@ -36,7 +40,11 @@ function Header({ headerText, isSearchPage }) {
         <h2 data-testid="page-title">{ headerText }</h2>
         {
           isSearchPage ? (
-            <button type="button" onClick={ openSearchBar }>
+            <button
+              className="search-bttn"
+              type="button"
+              onClick={ openSearchBar }
+            >
               <img
                 src={ SearchIcon }
                 alt="search-img"
