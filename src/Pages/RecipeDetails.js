@@ -28,17 +28,18 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
       }
       if (pathname.includes('/foods')) {
         setRecipeType('food');
-        const returnedRecipe = await fetchAPIs(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
         const recomendedRecipes = await fetchAPIs('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+        const returnedRecipe = await fetchAPIs(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
         setRecomendation([...recomendedRecipes.drinks]);
         setDetailedRecipe(returnedRecipe.meals[0]);
         setIsLoading(false);
       }
       if (pathname.includes('/drinks')) {
         setRecipeType('drink');
-        const returnedRecipe = await fetchAPIs(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
         const recomendedRecipes = await fetchAPIs('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+        const returnedRecipe = await fetchAPIs(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
         setRecomendation([...recomendedRecipes.meals]);
+        console.log(setRecomendation);
         setDetailedRecipe(returnedRecipe.drinks[0]);
         setIsLoading(false);
       }
@@ -157,10 +158,14 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
               recipeId={ id }
               setIsDisabled={ setIsDisabled }
             />
-            <section>
-              <p data-testid="instructions">{ strInstructions }</p>
+            <section className="instruction-paragraph">
+              <p
+                data-testid="instructions"
+              >
+                { strInstructions }
+              </p>
             </section>
-            <section>
+            <section className="recipe-video">
               {
                 (!isStarted && recipeType === 'food') && (
                   <iframe
@@ -232,7 +237,6 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
     </main>
   );
 }
-
 RecipeDetails.propTypes = {
   history: PropTypes.shape({
     location: PropTypes.shape({
