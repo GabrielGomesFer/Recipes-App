@@ -8,9 +8,9 @@ function DoneRecipes({ history: { location: { pathname } } }) {
   const [doneRecipes, setDoneRecipes] = useState([]);
 
   useEffect(() => {
-    if (!JSON.parse(localStorage.getItem('doneRecipes'))) {
-      localStorage.setItem('doneRecipes', JSON.stringify([]));
-    }
+    // if (!JSON.parse(localStorage.getItem('doneRecipes'))) {
+    //   localStorage.setItem('doneRecipes', JSON.stringify([]));
+    // }
     const storageRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     setDoneRecipes(storageRecipes);
   }, []);
