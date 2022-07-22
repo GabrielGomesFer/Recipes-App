@@ -1,8 +1,9 @@
 .recipe-card {
-  background-color: rgb(139, 139, 139);
+  background-color: black;
   border-radius: 8px;
-  flex-basis: 48%;
-  height: 240px;
+  color: white;
+  flex-basis: 30%;
+  height: 150px;
   margin: 10px 0;
 }
 

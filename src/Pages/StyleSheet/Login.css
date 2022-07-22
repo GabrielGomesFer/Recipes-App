@@ -32,15 +32,21 @@ h4 {
 .form-container-login button {
   background-color: rgb(82, 91, 218);
   border: none;
-  border-radius: 5px;
-  color: white;
+  border-radius: 10px;
+  color: black;
+  font-weight: 800;
+  height: 30px;
   margin: 25px 0;
-  padding: 8px 24px;
+  padding: 5px;
+  width: 150px;
 }
 
 .form-container-login button:hover {
   background-color: rgb(67, 74, 173);
+  border-radius: 10px;
+  color: black;
   cursor: pointer;
+  display: flex;
 }
 
 .form-container-login button:disabled {

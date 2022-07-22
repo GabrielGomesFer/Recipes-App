@@ -25,7 +25,6 @@ function SearchBar({ recipeType }) {
     const pathname = recipeType === 'Foods'
       ? `/foods/${data[0].idMeal}`
       : `/drinks/${data[0].idDrink}`;
-    console.log(pathname);
     if (data.length === 1) {
       history.push(pathname);
     }

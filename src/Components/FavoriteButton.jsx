@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import RecipesContext from '../Context/recipesContext';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import './StyleSheet/FavoriteButton.css';
 
 function FavoriteButton({ recipe, recipeType, recipeId, index, pathname }) {
   const { setFavorites } = useContext(RecipesContext);
@@ -59,6 +60,7 @@ function FavoriteButton({ recipe, recipeType, recipeId, index, pathname }) {
   return (
     <div>
       <button
+        className="favorite-bttn"
         type="button"
         onClick={ favoriteClick }
       >

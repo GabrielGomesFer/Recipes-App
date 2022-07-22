@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import './StyleSheet/IngredientsRecipe.css';
 
 function IngredientsRecipe({ recipe, isStarted, recipeType, recipeId, setIsDisabled }) {
   const [ingredients, setIngredients] = useState([]);
@@ -94,8 +95,10 @@ function IngredientsRecipe({ recipe, isStarted, recipeType, recipeId, setIsDisab
   }, [progressRecipe, setIsDisabled, ingredients]);
 
   return (
-    <section>
-      <h1>Ingredients</h1>
+    <section
+      className="ingredients-recipe-section"
+    >
+      <h4>Ingredients</h4>
       {
         isStarted ? ingredients.map((ingredient, index) => (
           <label

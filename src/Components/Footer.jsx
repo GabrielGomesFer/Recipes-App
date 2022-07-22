@@ -14,12 +14,14 @@ function Footer() {
   return (
     <footer className="footer-container" data-testid="footer">
       <button
+        className="footerbttn1"
         type="button"
         onClick={ () => redirectToPage('foods') }
       >
         <img data-testid="food-bottom-btn" src={ mealIcon } alt="Meal Icon" />
       </button>
       <button
+        className="footerbttn2"
         type="button"
         onClick={ () => redirectToPage('drinks') }
       >

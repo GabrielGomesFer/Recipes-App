@@ -120,7 +120,9 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
       {
         !isLoading && (
           <div>
-            <header>
+            <header
+              className="header-recipe-details"
+            >
               <img
                 src={ recipeType === 'food'
                   ? detailedRecipe.strMealThumb : detailedRecipe.strDrinkThumb }
@@ -128,15 +130,17 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
                 data-testid="recipe-photo"
                 className="header-image"
               />
-              <h3 data-testid="recipe-title">
+              <h2 data-testid="recipe-title">
                 { recipeType === 'food'
                   ? detailedRecipe.strMeal : detailedRecipe.strDrink }
-              </h3>
+              </h2>
               <h5 data-testid="recipe-category">
                 { recipeType === 'food'
                   ? detailedRecipe.strCategory : detailedRecipe.strAlcoholic }
               </h5>
-              <div>
+              <div
+                className="fav-share-bttn"
+              >
                 <ShareButton pathname={ pathname } />
                 <FavoriteButton
                   recipeId={ id }

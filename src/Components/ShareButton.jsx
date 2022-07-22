@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
+import './StyleSheet/ShareButton.css';
 
 function ShareButton({ pathname, type, id, index }) {
   const [coppied, setCoppied] = useState(false);
@@ -18,6 +19,7 @@ function ShareButton({ pathname, type, id, index }) {
   return (
     <div>
       <button
+        className="share-bttn"
         type="button"
         onClick={ copyMessage }
       >

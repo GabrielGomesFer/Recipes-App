@@ -1,6 +1,6 @@
 .footer-container {
   align-items: center;
-  background-color: rgb(221, 221, 221);
+  background-color: black;
   bottom: 0;
   display: flex;
   justify-content: space-between;
@@ -10,5 +10,15 @@
 }
 
 .footer-container button {
+  background-color: black;
+  border: none;
   margin: 7px;
+}
+
+.footerbttn1 img {
+  filter: invert();
+}
+
+.footerbttn2 img {
+  filter: invert();
 }

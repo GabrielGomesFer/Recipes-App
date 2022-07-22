@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import fetchAPIs from '../services/FetchAPI';
 import RecipesContext from '../Context/recipesContext';
+import './StyleSheet/ButtonFilters.css';
 import 'bootstrap';
 
 function ButtonFilters({ recipeType }) {
@@ -60,6 +61,7 @@ function ButtonFilters({ recipeType }) {
   return (
     <section>
       <button
+        className="all-bttn"
         type="button"
         onClick={ handleClick }
         data-testid="All-category-filter"
@@ -72,6 +74,7 @@ function ButtonFilters({ recipeType }) {
           if (index < MAX_LENGTH_FILTERS) {
             return (
               <button
+                className="filter-bttn"
                 key={ strCategory }
                 type="button"
                 data-testid={ `${strCategory}-category-filter` }
