@@ -1,6 +1,6 @@
 import React from 'react';
 import renderWithRouter from './helper/renderWithRouter';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import favoriteRecipes from './mocks/favoriteRecipes';
 import App from '../App';
@@ -40,5 +40,19 @@ describe('Testes da página de receitas favoritas', () => {
     expect(storage).toHaveLength(1);
 
     expect(screen.queryByTestId('1-horizontal-favorite-btn')).not.toBeInTheDocument();
+  });
+
+  it('Verifica o funcionamento do botão share', async () => {
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+    document.execCommand = jest.fn(() => Promise.resolve('Copiado!'));
+
+    const { history } = renderWithRouter(<App />);
+    history.push('/favorite-recipes');
+
+    const shareBtn = await screen.findByTestId('0-horizontal-share-btn');
+
+    userEvent.click(shareBtn);
+
+    await waitFor(() => expect(screen.getByText(/link copied!/i)).toBeInTheDocument());
   });
 });

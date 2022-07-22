@@ -9,6 +9,7 @@ import meals from './mocks/meals';
 import oneDrink from './mocks/oneDrink';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import copy from 'clipboard-copy';
 
 describe('Testa a página Recipe Details', () => {
 
@@ -104,30 +105,53 @@ describe('Testa a página Recipe Details', () => {
   it('Testa a funcionalidade do botão de favoritar', async () => {
     jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
       json: () => Promise.resolve(oneMeal),
-  }));
+    }));
     
-  jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.resolve({
+    jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.resolve({
       json: () => Promise.resolve(drinks),
-  }));
+    }));
 
-  const { history } = renderWithRouter(<App />);
-  history.push('/foods/52771');
+    const { history } = renderWithRouter(<App />);
+    history.push('/foods/52771');
 
-  await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(2));
+    await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(2));
 
-  expect(JSON.parse(localStorage.getItem('favoriteRecipes'))).toEqual([]);
+    expect(JSON.parse(localStorage.getItem('favoriteRecipes'))).toEqual([]);
 
-  const favoriteBtn = screen.getByTestId('favorite-btn');
-  expect(favoriteBtn).toHaveAttribute('src', whiteHeartIcon);
+    const favoriteBtn = screen.getByTestId('favorite-btn');
+    expect(favoriteBtn).toHaveAttribute('src', whiteHeartIcon);
 
-  userEvent.click(favoriteBtn);
+    userEvent.click(favoriteBtn);
 
-  expect(JSON.parse(localStorage.getItem('favoriteRecipes')).length).toBe(1);
-  expect(favoriteBtn).toHaveAttribute('src', blackHeartIcon);
+    expect(JSON.parse(localStorage.getItem('favoriteRecipes')).length).toBe(1);
+    expect(favoriteBtn).toHaveAttribute('src', blackHeartIcon);
 
-  userEvent.click(favoriteBtn);
+    userEvent.click(favoriteBtn);
 
-  expect(JSON.parse(localStorage.getItem('favoriteRecipes'))).toEqual([]);
-  expect(favoriteBtn).toHaveAttribute('src', whiteHeartIcon);
+    expect(JSON.parse(localStorage.getItem('favoriteRecipes'))).toEqual([]);
+    expect(favoriteBtn).toHaveAttribute('src', whiteHeartIcon);
   });
+
+  it('testa funcionalidade do botão de share', async () => {
+    jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
+      json: () => Promise.resolve(oneMeal),
+      }));
+    
+    jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.resolve({
+      json: () => Promise.resolve(drinks),
+    }));
+
+    document.execCommand = jest.fn(() => Promise.resolve('Copiado!'));
+
+    const { history } = renderWithRouter(<App />);
+    history.push('/foods/52771');
+
+    await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(2));
+
+    const shareBtn = screen.getByTestId('share-btn');
+
+    userEvent.click(shareBtn);
+
+    await waitFor(() => expect(screen.getByText(/link copied!/i)).toBeInTheDocument());
+  })
 });
