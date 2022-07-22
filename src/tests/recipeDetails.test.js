@@ -7,13 +7,14 @@ import oneMeal from './mocks/oneMeal';
 import drinks from './mocks/drinks';
 import meals from './mocks/meals';
 import oneDrink from './mocks/oneDrink';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 describe('Testa a página Recipe Details', () => {
 
   afterEach(() => jest.clearAllMocks());
 
   it('Verifica se a pagina de uma comida é renderizada corretamente', async () => {
-
     jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
         json: () => Promise.resolve(oneMeal),
     }));
@@ -96,7 +97,37 @@ describe('Testa a página Recipe Details', () => {
     expect(instructions).toBeInTheDocument();
     expect(ingredientList.length).toBe(3);
     expect(recommendations.length).toBe(6);
-    
+
     expect(screen.queryByTestId('start-recipe-btn')).not.toBeInTheDocument();
+  });
+
+  it('Testa a funcionalidade do botão de favoritar', async () => {
+    jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
+      json: () => Promise.resolve(oneMeal),
+  }));
+    
+  jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.resolve({
+      json: () => Promise.resolve(drinks),
+  }));
+
+  const { history } = renderWithRouter(<App />);
+  history.push('/foods/52771');
+
+  await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(2));
+
+  expect(JSON.parse(localStorage.getItem('favoriteRecipes'))).toEqual([]);
+
+  const favoriteBtn = screen.getByTestId('favorite-btn');
+  expect(favoriteBtn).toHaveAttribute('src', whiteHeartIcon);
+
+  userEvent.click(favoriteBtn);
+
+  expect(JSON.parse(localStorage.getItem('favoriteRecipes')).length).toBe(1);
+  expect(favoriteBtn).toHaveAttribute('src', blackHeartIcon);
+
+  userEvent.click(favoriteBtn);
+
+  expect(JSON.parse(localStorage.getItem('favoriteRecipes'))).toEqual([]);
+  expect(favoriteBtn).toHaveAttribute('src', whiteHeartIcon);
   });
 });
