@@ -35,17 +35,25 @@ describe('Testa a pagina de Login', () => {
   })
 
   it('Verifica se o e-mail é salvo na chave user e os tokens nas chaves mealsToken e cocktailsToken', () => {
-	renderWithRouter(<App />);
+	const { history } = renderWithRouter(<App />);
 
+	expect(history.location.pathname).toBe('/');
+	
+	const inputEmail = screen.getByTestId('email-input');
+	const inputPassword =  screen.getByTestId('password-input');
 	const button = screen.getByTestId('login-submit-btn');
-	userEvent.type(inputPassword, '1234567');
+
 	userEvent.type(inputEmail, 'teste@teste.com');
+	userEvent.type(inputPassword, '1234567');
 	
 	userEvent.click(button);
-	const user = localStorage.getItem(user);
-	const mealsToken = localStorage.getItem(mealsToken);
-	const cocktailsToken = localStorage.getItem(cocktailsToken);
-	expect(user).toBe('teste@teste.com');
+
+	expect(history.location.pathname).toBe('/foods');
+
+	const user = JSON.parse(localStorage.getItem('user'));
+	const mealsToken = localStorage.getItem('mealsToken');
+	const cocktailsToken = localStorage.getItem('cocktailsToken');
+	expect(user.email).toBe('teste@teste.com');
 	expect(cocktailsToken).toBe('1');
 	expect(mealsToken).toBe('1');
   })
