@@ -1,20 +1,19 @@
 import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import renderWithRouter from './helper/renderWithRouter';
 import App from '../App';
 import userEvent from '@testing-library/user-event';
 
 describe('Testa a página de Login', () => {
-
   it('Verifica se a pagina é redirecionada ao PROFILE ao clicar na imagem de perfil', () => {
 		const { history } = renderWithRouter(<App />)
-        history.push('/foods')
+    history.push('/foods')
 
-        const profileBtn = screen.getByTestId('profile-top-btn');
-        userEvent.click(profileBtn)
+    const profileBtn = screen.getByTestId('profile-top-btn');
+    userEvent.click(profileBtn);
 
 		expect(history.location.pathname).toBe('/profile');
-  })
+  });
 
   it('Verifica funcionalidades do Header', () => {
     const { history } = renderWithRouter(<App />);
