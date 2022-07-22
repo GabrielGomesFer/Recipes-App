@@ -6,9 +6,9 @@ import RecipesContext from '../Context/recipesContext';
 import Footer from '../Components/Footer';
 import fetchAPIs from '../services/FetchAPI';
 import ButtonFilters from '../Components/ButtonFilters';
-import './StyleSheet/Search.css';
+import './StyleSheet/Recipes.css';
 
-function Search({ history: { location: { pathname } } }) {
+function Recipes({ history: { location: { pathname } } }) {
   const [recipeType, setRecipeType] = useState('');
 
   const { recipes, setRecipes, isLoading, setIsLoading } = useContext(RecipesContext);
@@ -68,7 +68,7 @@ function Search({ history: { location: { pathname } } }) {
   );
 }
 
-Search.propTypes = {
+Recipes.propTypes = {
   history: PropTypes.shape({
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired,
@@ -76,4 +76,4 @@ Search.propTypes = {
   }).isRequired,
 };
 
-export default Search;
+export default Recipes;
