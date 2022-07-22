@@ -2,7 +2,6 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import renderWithRouter from './helper/renderWithRouter';
 import App from '../App';
-import userEvent from '@testing-library/user-event';
 import doneRecipes from './mocks/doneRecipes';
 
 describe('Testes da página de receitas feitas', () => {
@@ -21,15 +20,7 @@ describe('Testes da página de receitas feitas', () => {
     expect(btnFilterDrink).toBeInTheDocument();
 
     
-    // expect(await screen.findByText(doneRecipes[0].name)).toBeInTheDocument();
-    expect(await screen.findByTestId('0-horizontal-top-text')).toBeInTheDocument();
+    expect(await screen.findByText(doneRecipes[0].name)).toBeInTheDocument();
     expect(await screen.findByText(doneRecipes[1].name)).toBeInTheDocument();
   });
-
-  it('Testa se ao renderizar a página com localStorage Vazio, nenhuma receita é renderizada', () => {
-    const { history } = renderWithRouter(<App />);
-    history.push('/done-recipes');
-
-    expect(screen.queryByTestId('0-horizontal-top-text')).not.toBeInTheDocument();
-  })
 })
