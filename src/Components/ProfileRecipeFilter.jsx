@@ -53,9 +53,13 @@ function ProfileRecipeFilter({ profileRecipes, setRecipes, storageKey }) {
 }
 
 ProfileRecipeFilter.propTypes = {
-  profileRecipes: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  profileRecipes: PropTypes.arrayOf(PropTypes.object.isRequired),
   setRecipes: PropTypes.func.isRequired,
   storageKey: PropTypes.string.isRequired,
+};
+
+ProfileRecipeFilter.defaultProps = {
+  profileRecipes: [],
 };
 
 export default ProfileRecipeFilter;
