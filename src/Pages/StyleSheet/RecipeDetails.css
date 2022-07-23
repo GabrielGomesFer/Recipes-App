@@ -1,6 +1,19 @@
+main {
+  background-color: whitesmoke;
+}
+
+.instruction-paragraph p {
+  background-color: rgb(199, 199, 199);
+  border-radius: 15px;
+
+  /* font-family: monospace , Calibri , sans-serif; */
+  margin: 15px;
+  padding: 5px;
+}
+
 .header-image {
   border: 10px solid black;
-  border-radius: 5%;
+  border-radius: 0% 0% 5% 5%;
   width: 100%;
 }
 
@@ -16,10 +29,10 @@
 }
 
 .header-recipe-details h5 {
-  background-color: rgb(70, 70, 70);
+  background-color: rgb(199, 199, 199);
   border: none;
   border-radius: 10px;
-  color: white;
+  color: black;
   display: flex;
   justify-content: center;
   margin-bottom: 15px;
@@ -28,7 +41,7 @@
 
 .recomended-container {
 
-  /*   display: flex; */
+  /* display: flex; */
   margin-bottom: 35px;
   overflow-x: scroll;
   white-space: nowrap;
@@ -56,3 +69,30 @@
   padding: 6px;
   position: fixed;
 }
+
+.finish-btn {
+  background-color: black;
+  border-radius: 10px;
+  bottom: 0;
+  color: white;
+  display: flex;
+  left: 135px;
+  padding: 6px;
+}
+
+.recipe-video iframe {
+  align-items: center;
+  background-color: black;
+  border-radius: 15px;
+  display: inline-block;
+  margin-left: 6%;
+  padding: 10px;
+}
+
+.recipe-buttons-start-finish {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+

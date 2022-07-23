@@ -15,7 +15,6 @@ function FavoriteRecipes({ history: { location: { pathname } } }) {
   return (
     <div>
       <Header headerText="Favorite Recipes" isSearchPage={ false } />
-
       <ProfileRecipeFilter
         profileRecipes={ favorites }
         setRecipes={ setFavorites }

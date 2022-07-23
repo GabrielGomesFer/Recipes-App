@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ShareButton from './ShareButton';
@@ -19,8 +19,6 @@ function HorizontalRecipeCard({
   // favorites,
   pathname,
 }) {
-  useEffect(() => console.log(alcoholicOrNot), [alcoholicOrNot]);
-
   return (
     <div className="card-container">
       <div className="image-container">

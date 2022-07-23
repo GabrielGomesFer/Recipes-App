@@ -11,3 +11,12 @@
   margin-top: 15px;
   padding: 3px;
 }
+
+.ingredients-recipe-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.selected {
+  text-decoration: none solid black;
+}

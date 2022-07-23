@@ -55,12 +55,9 @@ function SearchBar({ recipeType }) {
   const configUrl = () => {
     const urlFormat = recipeType === 'Foods' ? 'https://www.themealdb.com/api/json/v1/1/' : 'https://www.thecocktaildb.com/api/json/v1/1/';
     const { textValue, searchType } = inputSearch;
-    if (searchType === 'i=') {
-      return `${urlFormat}filter.php?${searchType}${textValue}`;
-    }
-    if (searchType !== 'i=') {
-      return `${urlFormat}search.php?${searchType}${textValue}`;
-    }
+    return searchType === 'i='
+      ? `${urlFormat}filter.php?${searchType}${textValue}`
+      : `${urlFormat}search.php?${searchType}${textValue}`;
   };
 
   const searchButtonClick = () => {

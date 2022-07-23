@@ -46,12 +46,13 @@ ShareButton.propTypes = {
   pathname: PropTypes.string.isRequired,
   id: PropTypes.string,
   type: PropTypes.string,
-  index: PropTypes.number.isRequired,
+  index: PropTypes.number,
 };
 
 ShareButton.defaultProps = {
   id: '',
   type: '',
+  index: 0,
 };
 
 export default ShareButton;
