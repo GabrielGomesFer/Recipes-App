@@ -2,7 +2,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import renderWithRouter from './helper/renderWithRouter';
 import App from '../App';
-import doneRecipes from './mocks/doneRecipes';
+import doneRecipes from './mocks/localStorage/doneRecipes';
 import userEvent from '@testing-library/user-event';
 
 describe('Testes da página de receitas feitas', () => {

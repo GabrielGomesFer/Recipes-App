@@ -2,7 +2,7 @@ import React from 'react';
 import renderWithRouter from './helper/renderWithRouter';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import favoriteRecipes from './mocks/favoriteRecipes';
+import favoriteRecipes from './mocks/localStorage/favoriteRecipes';
 import App from '../App';
 
 describe('Testes da página de receitas favoritas', () => {

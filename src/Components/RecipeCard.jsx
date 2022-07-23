@@ -24,13 +24,23 @@ function RecipeCard({
 }
 
 RecipeCard.propTypes = {
-  recipeId: PropTypes.string.isRequired,
-  recipeName: PropTypes.string.isRequired,
-  recipeImage: PropTypes.string.isRequired,
-  recipeType: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
-  linkTestId: PropTypes.string.isRequired,
-  nameTestId: PropTypes.string.isRequired,
+  recipeId: PropTypes.string,
+  recipeName: PropTypes.string,
+  recipeImage: PropTypes.string,
+  recipeType: PropTypes.string,
+  index: PropTypes.number,
+  linkTestId: PropTypes.string,
+  nameTestId: PropTypes.string,
+};
+
+RecipeCard.defaultProps = {
+  recipeId: '',
+  recipeName: '',
+  recipeImage: '',
+  recipeType: '',
+  index: 0,
+  linkTestId: '',
+  nameTestId: '',
 };
 
 export default RecipeCard;

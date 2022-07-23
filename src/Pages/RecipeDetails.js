@@ -65,7 +65,8 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
     }
     if (recipeType === 'drink' && inProgressRecipes.cocktails) {
       const inProgressIds = Object.keys(inProgressRecipes.cocktails);
-      setIsInProgress(inProgressIds.some((inProgressId) => inProgressId === id));
+      const inProgress = inProgressIds.some((inProgressId) => inProgressId === id);
+      setIsInProgress(inProgress);
     }
   }, [id, recipeType]);
 

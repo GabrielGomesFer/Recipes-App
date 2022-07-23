@@ -47,7 +47,8 @@ function Recipes({ history: { location: { pathname } } }) {
             if (index < MAX_LENGTH_CARDS) {
               return (
                 <RecipeCard
-                  key={ recipeType === 'Foods' ? recipe.idMeal : recipe.idDrink }
+                  // key={ recipeType === 'Foods' ? recipe.idMeal : recipe.idDrink }
+                  key={ index }
                   linkTestId={ `${index}-recipe-card` }
                   nameTestId={ `${index}-card-name` }
                   index={ index }

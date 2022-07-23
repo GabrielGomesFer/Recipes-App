@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Header from '../Components/Header';
 import HorizontalRecipeCard from '../Components/HorizontalRecipeCard';
 import ProfileRecipeFilter from '../Components/ProfileRecipeFilter';
-/* import './StyleSheet/DoneRecipes.css'; */
 
 function DoneRecipes({ history: { location: { pathname } } }) {
   const [doneRecipes, setDoneRecipes] = useState([]);

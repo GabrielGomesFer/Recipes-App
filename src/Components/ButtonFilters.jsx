@@ -75,7 +75,7 @@ function ButtonFilters({ recipeType }) {
             return (
               <button
                 className="filter-bttn"
-                key={ strCategory }
+                key={ index }
                 type="button"
                 data-testid={ `${strCategory}-category-filter` }
                 onClick={ handleClick }

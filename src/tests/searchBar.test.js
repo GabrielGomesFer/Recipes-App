@@ -6,11 +6,17 @@ import userEvent from '@testing-library/user-event';
 import mealsByIngredient from './mocks/mealsByIngredients';
 import drinks from './mocks/drinks';
 import mealCategories from './mocks/mealCategorys';
+import drinkCategories from './mocks/drinkCategories';
+import oneMeal from './mocks/oneMeal';
 
 describe('Testa a barra de busca na página de comidas', () => {
   beforeEach(() => {
     jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
       json: () => Promise.resolve(mealsByIngredient),
+    }));
+
+    jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.resolve({
+      json: () => Promise.resolve(mealCategories),
     }));
   });
  
@@ -129,15 +135,15 @@ describe('Testa a barra de busca na página de comidas', () => {
     await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(2));
 
     jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.resolve({
-      json: () => Promise.resolve({
-        'meals': [
-          {
-            'strMeal': 'Brown Stew Chicken',
-            'strMealThumb': 'https://www.themealdb.com/images/media/meals/sypxpx1515365095.jpg',
-            'idMeal': '52940'
-          }
-        ]
-      }),
+      json: () => Promise.resolve(oneMeal),
+    }));
+
+    jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.resolve({
+      json: () => Promise.resolve(drinks),
+    }));
+
+    jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.resolve({
+      json: () => Promise.resolve(oneMeal),
     }));
 
     const openSearchBtn = screen.getByTestId('search-top-btn');
@@ -148,20 +154,15 @@ describe('Testa a barra de busca na página de comidas', () => {
     const searchButton = screen.getByTestId('exec-search-btn');
 
     userEvent.click(nameRadio);
-    userEvent.type(search, 'Brown Stew Chicken');
+    userEvent.type(search, 'Spicy Arrabiata Penne');
     userEvent.click(searchButton);
     
-    // await waitFor(() => expect(history.location.pathname).toBe('/foods/52940'));
-    await waitFor(() => expect(global.fetch).toHaveBeenCalled());    
+    await waitFor(() => expect(global.fetch).toHaveBeenCalled());     
 
-    // Problema de reconhecimento dos elementos corrigido, não faço idéia de como mockar a resposta dos drinks recomendados no meio de 3 fetchs diferentes
+    expect(history.location.pathname).toBe('/foods/52771')
 
-    expect(history.location.pathname).toBe('/foods/52940')
-
-    // const name = await waitFor(() => screen.getByTestId('recipe-title'));
-    // const name = screen.getByTestId('recipe-title');
-
-    // expect(name.innerHTML).toBe('Brown Stew Chicken');
+   expect(screen.getByTestId('recipe-title')).toHaveTextContent('Spicy Arrabiata Penne');
+    
   });
 });
 
@@ -171,6 +172,10 @@ describe('Testa a barra de busca na página de bebidas', () => {
     jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
       json: () => Promise.resolve(drinks),
     }));
+
+    jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.resolve({
+      json: () => Promise.resolve(drinkCategories),
+    }));
   });
 
   afterEach(() => jest.clearAllMocks());
@@ -179,8 +184,8 @@ describe('Testa a barra de busca na página de bebidas', () => {
     const { history } = renderWithRouter(<App />);
     history.push('/drinks');
 
-    await waitFor(() => expect(global.fetch).toBeCalledTimes(2)); 
-
+    await waitFor(() => expect(global.fetch).toBeCalledTimes(2));
+   
     const openSearchBtn = screen.getByTestId('search-top-btn');
     userEvent.click(openSearchBtn);
 
@@ -199,6 +204,8 @@ describe('Testa a barra de busca na página de bebidas', () => {
     const { history } = renderWithRouter(<App />);
     history.push('/drinks');
 
+    await waitFor(() => expect(global.fetch).toBeCalledTimes(2));
+
     const openSearchBtn = screen.getByTestId('search-top-btn');
     userEvent.click(openSearchBtn);
 
@@ -216,6 +223,8 @@ describe('Testa a barra de busca na página de bebidas', () => {
   it('Verifica a funcionalidade do filtro de primeira letra', async () => {
     const { history } = renderWithRouter(<App />);
     history.push('/drinks');
+
+    await waitFor(() => expect(global.fetch).toBeCalledTimes(2));
 
     const openSearchBtn = screen.getByTestId('search-top-btn');
     userEvent.click(openSearchBtn);
