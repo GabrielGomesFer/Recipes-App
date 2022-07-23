@@ -1,143 +1,101 @@
-import React from 'react';
-import renderWithRouter from './helper/renderWithRouter';
-import { screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import meals from './mocks/meals';
-import beefMeals from './mocks/beefMeals';
-import breakFast from './mocks/breakfastMeals';
-import chickenMeals from './mocks/chickenMeals';
-import dessertMeals from './mocks/dessertMeals';
-import goatMeals from './mocks/goatMeals';
-import drinks from './mocks/drinks';
-import cocoaDrinks from './mocks/cocoaDrinks';
-import ordinary from './mocks/ordinaryDrinks';
-import otherDrinks from './mocks/otherDrinks';
-import shakes from './mocks/milkDrinks';
-import cocktail from './mocks/cocktailDrinks';
-import App from '../App';
+import React from "react";
+import renderWithRouter from "./helper/renderWithRouter";
+import { screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import App from "../App";
+import meals from "./mocks/meals";
+import mealCategorys from "./mocks/mealCategorys";
+import drinks from "./mocks/drinks";
+import drinkCategories from './mocks/drinkCategories';
+import beefMeals from "./mocks/buttonFilter/beefMeals";
+import cocktail from "./mocks/buttonFilter/cocktailDrinks";
 
-describe('testa funcionalidades dos botões de filtro', () => {
-    it('testa botoes do /Foods', async () => {
-        jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
-            json: () => Promise.resolve(meals),
-        }));
+describe("testa funcionalidades dos botões de filtro", () => {
+  afterEach(() => jest.clearAllMocks());
+  it("testa botoes do /Foods", async () => {
+    jest.spyOn(global, "fetch").mockImplementationOnce(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(meals),
+      })
+    );
 
-        const { history } = renderWithRouter(<App />);
-        history.push('/foods');
+    jest.spyOn(global, "fetch").mockImplementationOnce(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(mealCategorys),
+      })
+    );
 
-        await waitFor(() => expect(global.fetch).toBeCalledTimes(2)); //GOAT
-        
-        jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.resolve({
-          json: () => Promise.resolve(goatMeals),
-        }));
+    const { history } = renderWithRouter(<App />);
+    history.push("/foods");
 
-        await waitFor(() => expect(global.fetch).toBeCalledTimes(2)); // dessert
-        
-        jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.resolve({
-          json: () => Promise.resolve(dessertMeals),
-        }));
+    await waitFor(() => expect(global.fetch).toBeCalledTimes(2));    
 
-        await waitFor(() => expect(global.fetch).toBeCalledTimes(2)); // CHICKEN
-        
-        jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.resolve({
-          json: () => Promise.resolve(chickenMeals),
-        }));
+    jest.spyOn(global, "fetch").mockImplementationOnce(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(beefMeals),
+      })
+    );
+    // Beef
+    const buttonBeef = screen.getByText("Beef");
 
-        await waitFor(() => expect(global.fetch).toBeCalledTimes(2)); // BREAKFAST
-        
-        jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.resolve({
-          json: () => Promise.resolve(breakFast),
-        }));
-        await waitFor(() => expect(global.fetch).toBeCalledTimes(2)); // BEEF
-        
-        jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.resolve({
-          json: () => Promise.resolve(beefMeals),
-        }));
-        
-        const allBtn = screen.getByTestId('All-category-filter');
-        const beefBTN = screen.getByTestId('Beef-category-filter');
-        const breakfastBTN = screen.getByTestId('Breakfast-category-filter');
-        const dessertBTN = screen.getByTestId('Dessert-category-filter');
-        const chickenBTN = screen.getByTestId('Chicken-category-filter');
-        const goatBTN = screen.getByTestId('Goat-category-filter');
+    userEvent.click(buttonBeef);
 
-        const imageCards = screen.getAllByRole('a');
+    await waitFor(() =>
+      expect(global.fetch).toBeCalledWith(
+        "https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef"
+      )
+    );
 
-        userEvent.click(beefBTN);
-        waitFor(() => expect(imageCards).toHaveLength(12));
-        userEvent.click(beefBTN);
-        waitFor(() => expect(imageCards).toHaveLength(12));
-        userEvent.click(breakfastBTN);
-        waitFor(() => expect(imageCards).toHaveLength(7));
-        userEvent.click(chickenBTN);
-        waitFor(() => expect(imageCards).toHaveLength(12));
-        userEvent.click(dessertBTN);
-        waitFor(() => expect(imageCards).toHaveLength(12));
-        userEvent.click(goatBTN);
-        waitFor(() => expect(imageCards).toHaveLength(1));
-        userEvent.click(allBtn);
-        waitFor(() => expect(imageCards).toHaveLength(12));
+    expect(screen.getByText('Beef and Mustard Pie')).toBeInTheDocument();
 
-    })
+    userEvent.click(buttonBeef);
 
+    await waitFor(() => expect(global.fetch).toBeCalled());
+  });
 
-    it('testa botao breakfast e all do /drinks', async () => {
-        jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
-            json: () => Promise.resolve(drinks),
-        }));
+  it("testa se o botao de filtro funciona também no /drinks", async () => {
+    jest.spyOn(global, "fetch").mockImplementationOnce(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(drinks),
+      })
+    );
 
-        const { history } = renderWithRouter(<App />);
-        history.push('/drinks');
-        
-        await waitFor(() => expect(global.fetch).toBeCalledTimes(2)); //GOAT
-        
-        jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.resolve({
-          json: () => Promise.resolve(ordinary),
-        }));
+    jest.spyOn(global, "fetch").mockImplementationOnce(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(drinkCategories),
+      })
+    );
 
-        await waitFor(() => expect(global.fetch).toBeCalledTimes(2)); // dessert
-        
-        jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.resolve({
-          json: () => Promise.resolve(shakes),
-        }));
+    const { history } = renderWithRouter(<App />);
+    history.push("/drinks");
 
-        await waitFor(() => expect(global.fetch).toBeCalledTimes(2)); // CHICKEN
-        
-        jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.resolve({
-          json: () => Promise.resolve(cocktail),
-        }));
+    await waitFor(() => expect(global.fetch).toBeCalledTimes(2));
+    
+    jest.spyOn(global, "fetch").mockImplementation(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(drinks),
+      })
+    );
 
-        await waitFor(() => expect(global.fetch).toBeCalledTimes(2)); // BREAKFAST
-        
-        jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.resolve({
-          json: () => Promise.resolve(otherDrinks),
-        }));
-        await waitFor(() => expect(global.fetch).toBeCalledTimes(2)); // BEEF
-        
-        jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.resolve({
-          json: () => Promise.resolve(cocoaDrinks),
-        }));
-        
-        const allBtn = screen.getByTestId('All-category-filter');
-        const cocoaBTN = screen.getByTestId('Cocoa-category-filter');
-        const otherBTN = screen.getByTestId('Other/Unknown-category-filter');
-        const shakeBTN = screen.getByTestId('Shake-category-filter');
-        const cocktailBTN = screen.getByTestId('Cocktail-category-filter');
-        const ordinaryBTN = screen.getByTestId('Ordinary Drink-category-filter');
+    jest.spyOn(global, "fetch").mockImplementationOnce(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(cocktail),
+      })
+    );
+    const buttonCocktail = screen.getByText("Cocktail");
 
-        const imageCards = screen.getAllByRole('a');
+    userEvent.click(buttonCocktail);
 
-        userEvent.click(cocoaBTN);
-        waitFor(() => expect(imageCards).toHaveLength(9));
-        userEvent.click(otherBTN);
-        waitFor(() => expect(imageCards).toHaveLength(12));
-        userEvent.click(cocktailBTN);
-        waitFor(() => expect(imageCards).toHaveLength(12));
-        userEvent.click(shakeBTN);
-        waitFor(() => expect(imageCards).toHaveLength(12));
-        userEvent.click(ordinaryBTN);
-        waitFor(() => expect(imageCards).toHaveLength(12));
-        userEvent.click(allBtn);
-        waitFor(() => expect(imageCards).toHaveLength(12));
-})
-})
+    await waitFor(() =>
+      expect(global.fetch).toBeCalledWith(
+        "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail"
+      )
+    );
+    
+    expect(screen.getByText('\'57 Chevy with a White License Plate')).toBeInTheDocument();
+    
+    userEvent.click(buttonCocktail);
+
+    await waitFor(() => expect(global.fetch).toBeCalled());
+  });
+});

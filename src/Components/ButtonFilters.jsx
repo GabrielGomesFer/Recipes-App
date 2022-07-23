@@ -31,8 +31,8 @@ function ButtonFilters({ recipeType }) {
     getCategorys();
   }, [recipeType, setIsLoading]);
 
-  const handleClick = async ({ target: { innerText } }) => {
-    if (innerText === 'All' || innerText === currentFilter) {
+  const handleClick = async ({ target: { id } }) => {
+    if (id === 'All' || id === currentFilter) {
       setIsLoading(true);
       setCurrentFilter('All');
       const url = recipeType === 'Foods'
@@ -43,12 +43,12 @@ function ButtonFilters({ recipeType }) {
       setRecipes(responseRecipes);
       setIsLoading(false);
     }
-    if (innerText !== 'All' && innerText !== currentFilter) {
-      setCurrentFilter(innerText);
+    if (id !== 'All' && id !== currentFilter) {
+      setCurrentFilter(id);
       setIsLoading(true);
       const url = recipeType === 'Foods'
-        ? `https://www.themealdb.com/api/json/v1/1/filter.php?c=${innerText}`
-        : `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${innerText}`;
+        ? `https://www.themealdb.com/api/json/v1/1/filter.php?c=${id}`
+        : `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${id}`;
       const data = await fetchAPIs(url);
       const responseRecipes = [...Object.values(data)[0]];
       setRecipes(responseRecipes);
@@ -63,6 +63,7 @@ function ButtonFilters({ recipeType }) {
       <button
         className="all-bttn"
         type="button"
+        id="All"
         onClick={ handleClick }
         data-testid="All-category-filter"
       >
@@ -77,6 +78,7 @@ function ButtonFilters({ recipeType }) {
                 className="filter-bttn"
                 key={ index }
                 type="button"
+                id={ strCategory }
                 data-testid={ `${strCategory}-category-filter` }
                 onClick={ handleClick }
               >
