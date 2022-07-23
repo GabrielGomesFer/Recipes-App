@@ -133,6 +133,36 @@ describe('Testa a página Recipe Details', () => {
     expect(favoriteBtn).toHaveAttribute('src', whiteHeartIcon);
   });
 
+  it('Testa a funcionalidade do botão de favoritar com bebidas', async () => {
+    jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
+      json: () => Promise.resolve(oneDrink),
+    }));
+    
+    jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.resolve({
+      json: () => Promise.resolve(meals),
+    }));
+
+    const { history } = renderWithRouter(<App />);
+    history.push('/drinks/178319');
+
+    await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(2));
+
+    expect(JSON.parse(localStorage.getItem('favoriteRecipes'))).toEqual([]);
+
+    const favoriteBtn = screen.getByTestId('favorite-btn');
+    expect(favoriteBtn).toHaveAttribute('src', whiteHeartIcon);
+
+    userEvent.click(favoriteBtn);
+
+    expect(JSON.parse(localStorage.getItem('favoriteRecipes')).length).toBe(1);
+    expect(favoriteBtn).toHaveAttribute('src', blackHeartIcon);
+
+    userEvent.click(favoriteBtn);
+
+    expect(JSON.parse(localStorage.getItem('favoriteRecipes'))).toEqual([]);
+    expect(favoriteBtn).toHaveAttribute('src', whiteHeartIcon);
+  });
+
   it('testa funcionalidade do botão de share', async () => {
     jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
       json: () => Promise.resolve(oneMeal),
