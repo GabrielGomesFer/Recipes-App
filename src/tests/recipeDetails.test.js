@@ -51,6 +51,9 @@ describe('Testa a página Recipe Details', () => {
     expect(ingredientList.length).toBe(8);
     expect(recommendations.length).toBe(6);
     expect(buttonStart).toBeInTheDocument();
+
+    userEvent.click(buttonStart);
+    expect(history.location.pathname).toBe('/foods/52771/in-progress');
   });
 
   it('Verifica se a pagina de uma bebida é renderizada corretamente', async () => {
@@ -154,4 +157,26 @@ describe('Testa a página Recipe Details', () => {
 
     await waitFor(() => expect(screen.getByText(/link copied!/i)).toBeInTheDocument());
   })
+
+  it('testa funcionalidade do botão de continuar receita', async () => {
+    jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
+      json: () => Promise.resolve(oneMeal),
+      }));
+    
+    jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.resolve({
+      json: () => Promise.resolve(drinks),
+    }));
+
+    document.execCommand = jest.fn(() => Promise.resolve('Copiado!'));
+
+    localStorage.setItem('inProgressRecipes', JSON.stringify({meals: {53013:["3", "11", "12"]}}));
+
+    const { history } = renderWithRouter(<App />);
+    history.push('/foods/53013');
+
+    const button = screen.getByTestId('start-recipe-btn');
+    expect(button.textContent).toBe('Continue Recipe');
+    userEvent.click(button);
+    expect(history.location.pathname).toBe('/foods/53013/in-progress')
+  });
 });
