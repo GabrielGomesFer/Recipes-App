@@ -16,7 +16,6 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
   const [isLoading, setIsLoading] = useState(true);
   const [recomendation, setRecomendation] = useState([]);
   const [isInProgress, setIsInProgress] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(true);
   const { id } = useParams(); // hook usado para pegar parametros passados via url;
 
   const { isStarted, setIsStarted } = useContext(RecipesContext);
@@ -39,7 +38,6 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
         const recomendedRecipes = await fetchAPIs('https://www.themealdb.com/api/json/v1/1/search.php?s=');
         const returnedRecipe = await fetchAPIs(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
         setRecomendation([...recomendedRecipes.meals]);
-        console.log(setRecomendation);
         setDetailedRecipe(returnedRecipe.drinks[0]);
         setIsLoading(false);
       }
@@ -67,51 +65,20 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
     if (recipeType === 'food' && inProgressRecipes.meals) {
       const inProgressIds = Object.keys(inProgressRecipes.meals);
       setIsInProgress(inProgressIds.some((inProgressId) => inProgressId === id));
+      console.log(inProgressRecipes.meals);
     }
     if (recipeType === 'drink' && inProgressRecipes.cocktails) {
       const inProgressIds = Object.keys(inProgressRecipes.cocktails);
       setIsInProgress(inProgressIds.some((inProgressId) => inProgressId === id));
+      console.log(inProgressRecipes.cocktails);
     }
   }, [id, recipeType]);
+
+  useEffect(() => console.log(isFinishedRecipe), [isFinishedRecipe]);
 
   const handleClick = () => {
     setIsStarted(true);
     push(`/${recipeType}s/${id}/in-progress`);
-  };
-
-  const handleFinishRecipe = () => {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const tags = Array.isArray(detailedRecipe.strTags)
-      ? [...detailedRecipe.strTags] : [detailedRecipe.strTags];
-    const currentDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-
-    const COMPARATION_DATE = 10;
-
-    const formatedDay = day >= COMPARATION_DATE
-      ? day : `0${day}`;
-    const formatedMonth = month >= COMPARATION_DATE
-      ? month : `0${month}`;
-
-    const finishedRecipe = {
-      id: recipeType === 'food' ? detailedRecipe.idMeal : detailedRecipe.idDrink,
-      type: recipeType,
-      nationality: recipeType === 'food' ? detailedRecipe.strArea : '',
-      category: detailedRecipe.strCategory,
-      alcoholicOrNot: recipeType === 'food' ? '' : detailedRecipe.strAlcoholic,
-      name: recipeType === 'food' ? detailedRecipe.strMeal : detailedRecipe.strDrink,
-      image: recipeType === 'food'
-        ? detailedRecipe.strMealThumb : detailedRecipe.strDrinkThumb,
-      doneDate: `${formatedDay}/${formatedMonth}/${year}`,
-      tags: tags || [],
-    };
-
-    localStorage
-      .setItem('doneRecipes', JSON.stringify([...currentDoneRecipes, finishedRecipe]));
-
-    push('/done-recipes');
   };
 
   const MAX_LENGTH_RECOMENDATION = 6;
@@ -154,9 +121,8 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
             <IngredientsRecipe
               recipeType={ recipeType }
               recipe={ detailedRecipe }
-              isStarted={ isStarted }
               recipeId={ id }
-              setIsDisabled={ setIsDisabled }
+              isStarted={ isStarted }
             />
             <section className="instruction-paragraph">
               <p
@@ -167,7 +133,7 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
             </section>
             <section className="recipe-video">
               {
-                (!isStarted && recipeType === 'food') && (
+                (recipeType === 'food') && (
                   <iframe
                     title="Video Recipe"
                     src={ strYoutube.replace('watch?v=', 'embed/') }
@@ -178,7 +144,7 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
             </section>
             <section className="recomended-container">
               {
-                !isStarted && recomendation.map((recipe, index) => {
+                recomendation.map((recipe, index) => {
                   if (index < MAX_LENGTH_RECOMENDATION) {
                     return (
                       <RecipeCard
@@ -202,32 +168,17 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
             </section>
             {
               !isFinishedRecipe && (
-                <div>
-                  {
-                    !isStarted ? (
-                      <button
-                        type="button"
-                        data-testid="start-recipe-btn"
-                        onClick={ handleClick }
-                        className="start-recipe-btn"
-                      >
-                        {
-                          isInProgress ? 'Continue Recipe' : 'Start Recipe'
-                        }
-
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        data-testid="finish-recipe-btn"
-                        disabled={ isDisabled }
-                        onClick={ handleFinishRecipe }
-                      >
-                        Finish Recipe
-
-                      </button>
-                    )
-                  }
+                <div className="recipe-buttons-start-finis">
+                  <button
+                    type="button"
+                    data-testid="start-recipe-btn"
+                    onClick={ handleClick }
+                    className="start-recipe-btn"
+                  >
+                    {
+                      isInProgress ? 'Continue Recipe' : 'Start Recipe'
+                    }
+                  </button>
                 </div>
               )
             }
