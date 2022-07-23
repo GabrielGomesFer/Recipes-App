@@ -11,7 +11,7 @@ function RecipeCard({
       data-testid={ linkTestId }
       className="recipe-card"
     >
-      <div>
+      <div className="done-recipe-card">
         <img
           data-testid={ `${index}-card-img` }
           src={ recipeImage }

@@ -22,9 +22,6 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
 
   useEffect(() => {
     const idFetch = async () => {
-      if (pathname.includes('in-progress')) {
-        setIsStarted(true);
-      }
       if (pathname.includes('/foods')) {
         setRecipeType('food');
         const recomendedRecipes = await fetchAPIs('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');

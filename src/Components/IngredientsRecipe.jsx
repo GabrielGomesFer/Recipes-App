@@ -30,7 +30,6 @@ function IngredientsRecipe({ recipe, isStarted, recipeType, recipeId, setIsDisab
       const progress = recipesInProgress
         .filter((recipeInProgress) => recipeInProgress[0] === recipeId)
         .map((recipeIngredients) => recipeIngredients[1]);
-      console.log(progress);
       setProgressRecipe(progress[0] ? [...progress[0]] : []);
     }
 
@@ -139,9 +138,15 @@ function IngredientsRecipe({ recipe, isStarted, recipeType, recipeId, setIsDisab
 IngredientsRecipe.propTypes = {
   recipe: PropTypes.objectOf(PropTypes.string).isRequired,
   isStarted: PropTypes.bool.isRequired,
-  recipeId: PropTypes.string.isRequired,
-  recipeType: PropTypes.string.isRequired,
-  setIsDisabled: PropTypes.func.isRequired,
+  recipeId: PropTypes.string,
+  recipeType: PropTypes.string,
+  setIsDisabled: PropTypes.func,
+};
+
+IngredientsRecipe.defaultProps = {
+  setIsDisabled: () => {},
+  recipeId: '',
+  recipeType: '',
 };
 
 export default IngredientsRecipe;

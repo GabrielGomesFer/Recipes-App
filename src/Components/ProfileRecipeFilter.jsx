@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import './StyleSheet/ProfileRecipeFilter.css';
 
 function ProfileRecipeFilter({ profileRecipes, setRecipes, storageKey }) {
   const resetAll = () => {
@@ -25,14 +26,29 @@ function ProfileRecipeFilter({ profileRecipes, setRecipes, storageKey }) {
   }, [profileRecipes]);
 
   return (
-    <div>
-      <button type="button" data-testid="filter-by-all-btn" onClick={ resetAll }>
+    <div className="all-food-drinks-bttn">
+      <button
+        className="all-bttn"
+        type="button"
+        data-testid="filter-by-all-btn"
+        onClick={ resetAll }
+      >
         All
       </button>
-      <button type="button" data-testid="filter-by-food-btn" onClick={ filterFood }>
+      <button
+        className="foods-bttn"
+        type="button"
+        data-testid="filter-by-food-btn"
+        onClick={ filterFood }
+      >
         Foods
       </button>
-      <button type="button" data-testid="filter-by-drink-btn" onClick={ filterDrink }>
+      <button
+        className="drinks-bttn"
+        type="button"
+        data-testid="filter-by-drink-btn"
+        onClick={ filterDrink }
+      >
         Drinks
       </button>
     </div>

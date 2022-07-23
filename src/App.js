@@ -6,6 +6,7 @@ import Profile from './Pages/Profile';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
 import DoneRecipes from './Pages/DoneRecipes';
 import RecipeDetails from './Pages/RecipeDetails';
+import RecipeInProgress from './Pages/RecipeInProgress';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -14,13 +15,13 @@ function App() {
       <Route
         path="/drinks/:id/in-progress"
         render={ (props) => (
-          <RecipeDetails { ...props } />
+          <RecipeInProgress { ...props } />
         ) }
       />
       <Route
         path="/foods/:id/in-progress"
         render={ (props) => (
-          <RecipeDetails { ...props } />
+          <RecipeInProgress { ...props } />
         ) }
       />
       <Route
