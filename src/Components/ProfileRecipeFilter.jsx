@@ -10,19 +10,16 @@ function ProfileRecipeFilter({ profileRecipes, setRecipes, storageKey }) {
 
   const filterFood = () => {
     const filteredFoodRecipes = profileRecipes.filter((food) => food.type === 'food');
-    console.log(filteredFoodRecipes);
     setRecipes(filteredFoodRecipes);
   };
 
   const filterDrink = () => {
     const filteredDrinkRecipes = profileRecipes
       .filter((drink) => drink.type === 'drink');
-    console.log(filteredDrinkRecipes);
     setRecipes(filteredDrinkRecipes);
   };
 
   useEffect(() => {
-    console.log('profile filter', profileRecipes);
   }, [profileRecipes]);
 
   return (

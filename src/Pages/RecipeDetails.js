@@ -62,16 +62,12 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
     if (recipeType === 'food' && inProgressRecipes.meals) {
       const inProgressIds = Object.keys(inProgressRecipes.meals);
       setIsInProgress(inProgressIds.some((inProgressId) => inProgressId === id));
-      console.log(inProgressRecipes.meals);
     }
     if (recipeType === 'drink' && inProgressRecipes.cocktails) {
       const inProgressIds = Object.keys(inProgressRecipes.cocktails);
       setIsInProgress(inProgressIds.some((inProgressId) => inProgressId === id));
-      console.log(inProgressRecipes.cocktails);
     }
   }, [id, recipeType]);
-
-  useEffect(() => console.log(isFinishedRecipe), [isFinishedRecipe]);
 
   const handleClick = () => {
     setIsStarted(true);

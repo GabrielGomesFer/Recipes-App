@@ -9,7 +9,6 @@ import meals from './mocks/meals';
 import oneDrink from './mocks/oneDrink';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import copy from 'clipboard-copy';
 
 describe('Testa a página Recipe Details', () => {
 
