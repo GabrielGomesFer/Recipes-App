@@ -19,9 +19,9 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
 
   useEffect(() => {
     const idFetch = async () => {
-      if (pathname.includes('in-progress')) {
-        setIsStarted(true);
-      }
+      const startedRecipe = pathname.includes('in-progress');
+      setIsStarted(startedRecipe);
+
       if (pathname.includes('/foods')) {
         setRecipeType('food');
         const returnedRecipe = await fetchAPIs(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
@@ -46,16 +46,7 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
-    const tags = Array.isArray(detailedRecipe.strTags)
-      ? [...detailedRecipe.strTags] : [detailedRecipe.strTags];
     const currentDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-
-    const COMPARATION_DATE = 10;
-
-    const formatedDay = day >= COMPARATION_DATE
-      ? day : `0${day}`;
-    const formatedMonth = month >= COMPARATION_DATE
-      ? month : `0${month}`;
 
     const finishedRecipe = {
       id: recipeType === 'food' ? detailedRecipe.idMeal : detailedRecipe.idDrink,
@@ -66,8 +57,8 @@ function RecipeDetails({ history: { location: { pathname }, push } }) {
       name: recipeType === 'food' ? detailedRecipe.strMeal : detailedRecipe.strDrink,
       image: recipeType === 'food'
         ? detailedRecipe.strMealThumb : detailedRecipe.strDrinkThumb,
-      doneDate: `${formatedDay}/${formatedMonth}/${year}`,
-      tags: tags || [],
+      doneDate: `${day}/${month}/${year}`,
+      tags: recipeType === 'food' ? detailedRecipe.strTags.split(',') : [],
     };
 
     localStorage

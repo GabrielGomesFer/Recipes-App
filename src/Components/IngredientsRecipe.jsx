@@ -112,6 +112,9 @@ function IngredientsRecipe({ recipe, isStarted, recipeType, recipeId, setIsDisab
               name={ index }
               checked={ progressRecipe
                 .some((ingredientNumber) => ingredientNumber === index.toString()) }
+              className={ progressRecipe
+                .some((ingredientNumber) => ingredientNumber === index.toString())
+                ? 'selected' : null }
             />
             { `${ingredient[1]}: ${ingredient[0]}` }
           </label>

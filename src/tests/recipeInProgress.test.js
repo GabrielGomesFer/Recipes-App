@@ -1,97 +1,151 @@
-import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
-import renderWithRouter from './helper/renderWithRouter';
-import App from '../App';
-import userEvent from '@testing-library/user-event';
-import oneMeal from './mocks/oneMeal';
-import drinks from './mocks/drinks';
-import meals from './mocks/meals';
-import oneDrink from './mocks/oneDrink';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import copy from 'clipboard-copy';
+import React from "react";
+import { screen, waitFor } from "@testing-library/react";
+import renderWithRouter from "./helper/renderWithRouter";
+import App from "../App";
+import userEvent from "@testing-library/user-event";
+import oneDrink from "./mocks/oneDrink";
+import oneMeal from "./mocks/oneMeal";
 
-describe('Testa a página Recipe Details', () => {
 
+describe("Testa a página Recipe Details", () => {
   afterEach(() => jest.clearAllMocks());
 
-  it('Verifica se a pagina de uma comida em progresso é renderizada corretamente', async () => {
-    jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
+  it("Verifica se a pagina de uma comida em progresso é renderizada corretamente", async () => {
+    jest.spyOn(global, "fetch").mockImplementation(() =>
+      Promise.resolve({
         json: () => Promise.resolve(oneMeal),
-    }));
-      
-    jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.resolve({
-        json: () => Promise.resolve(drinks),
-    }));
-
-    localStorage.setItem('inProgressRecipes', JSON.stringify({meals: {53013:["3", "11", "12"]}}));
+      })
+    );
 
     const { history } = renderWithRouter(<App />);
-    history.push('/foods/53013/in-progress');
+    history.push("/foods/52771/in-progress");
 
-    await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(2));
-    
-    const ingredient = screen.getByTestId('0-ingredient-step')
-    const photo = screen.getByTestId('recipe-photo');
-    const text = screen.getByTestId('recipe-category');
-    const title = screen.getByTestId('recipe-title');
-    const instructions = screen.getByTestId('instructions');
-    const ingredientList = screen.getAllByRole('checkbox');
-    const buttonFinish = screen.getByTestId('finish-recipe-btn');
+    await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1));
 
-    expect(ingredient).toHaveTextContent('Minced Beef: 400g');
+    const ingredient = screen.getByTestId("0-ingredient-step");
+    const photo = screen.getByTestId("recipe-photo");
+    const text = screen.getByTestId("recipe-category");
+    const title = screen.getByTestId("recipe-title");
+    const instructions = screen.getByTestId("instructions");
+    const ingredientList = screen.getAllByRole("checkbox");
+    const buttonFinish = screen.getByTestId("finish-recipe-btn");
+
+    expect(ingredient).toHaveTextContent("penne rigate: 1 pound");
     expect(photo).toBeInTheDocument();
-    expect(text).toHaveTextContent('Beef');
-    expect(title).toHaveTextContent('Big Mac');
+    expect(text).toHaveTextContent("Vegetarian");
+    expect(title).toHaveTextContent("Spicy Arrabiata Penne");
     expect(instructions).toBeInTheDocument();
-    expect(ingredientList.length).toBe(14);
+    expect(ingredientList.length).toBe(8);
     expect(buttonFinish).toBeInTheDocument();
   });
 
-    it('Verifica se a pagina de uma bebida em progresso é renderizada corretamente', async () => {
-        jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
-            json: () => Promise.resolve(oneMeal),
-        }));
-          
-        jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.resolve({
-            json: () => Promise.resolve(drinks),
-        }));
-    
-        localStorage.setItem('inProgressRecipes', JSON.stringify({cocktails: {17225:["1", "2"]}}));
-    
-        const { history } = renderWithRouter(<App />);
-        history.push('/drinks/17225/in-progress');
-    
-        await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(2));
-        
-        const ingredient = screen.getByTestId('0-ingredient-step');
-        const photo = screen.getByTestId('recipe-photo');
-        const text = screen.getByTestId('recipe-category');
-        const title = screen.getByTestId('recipe-title');
-        const instructions = screen.getByTestId('instructions');
-        const ingredientList = screen.getAllByRole('checkbox');
-        const buttonFinish = screen.getByTestId('finish-recipe-btn');
-    
-        expect(ingredient).toHaveTextContent('Gin: 2 shots');
-        expect(photo).toBeInTheDocument();
-        expect(text).toHaveTextContent('Alcoholic');
-        expect(title).toHaveTextContent('Ace');
-        expect(instructions).toBeInTheDocument();
-        expect(ingredientList.length).toBe(5);
-        expect(ingredientList[1]).toHaveAttribute('checked', true);
-        expect(ingredientList[2]).toHaveAttribute('checked', true);
-        expect(ingredientList[3]).toHaveAttribute('checked', false);
-        expect(buttonFinish).toBeInTheDocument();
-        expect(buttonFinish).toHaveAttribute('disabled', true);
+  it("Verifica se a pagina de uma bebida em progresso é renderizada corretamente", async () => {
+    jest.spyOn(global, "fetch").mockImplementation(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(oneDrink),
+      })
+    );
 
-        expect(ingredientList[0]).not.toHaveAttribute('text-decoration', 'line-through'); //Aron, olha aqui!
-        userEvent.click(ingredientList[0]);
-        expect(ingredientList[0]).toHaveAttribute('text-decoration', 'line-through');
-        userEvent.click(ingredientList[3]);
-        userEvent.click(ingredientList[4]);
-        expect(buttonFinish).toHaveAttribute('disabled', false);
-        
-        userEvent.click(buttonFinish);
-        expect(history.location.pathname).toBe('/done-recipes')
+    const { history } = renderWithRouter(<App />);
+    history.push("/drinks/178319/in-progress");
+
+    await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1));
+
+    const ingredient = screen.getByTestId("0-ingredient-step");
+    const photo = screen.getByTestId("recipe-photo");
+    const text = screen.getByTestId("recipe-category");
+    const title = screen.getByTestId("recipe-title");
+    const instructions = screen.getByTestId("instructions");
+    const ingredientList = screen.getAllByRole("checkbox");
+    const buttonFinish = screen.getByTestId("finish-recipe-btn");
+
+    expect(ingredient).toHaveTextContent("Hpnotiq");
+    expect(photo).toBeInTheDocument();
+    expect(text).toHaveTextContent("Alcoholic");
+    expect(title).toHaveTextContent("Aquamarine");
+    expect(instructions).toBeInTheDocument();
+    expect(ingredientList.length).toBe(3);
+    expect(buttonFinish).toBeInTheDocument();
+  });
+
+  it("Verifica se a pagina de uma bebida em progresso é renderizada corretamente", async () => {
+    jest.spyOn(global, "fetch").mockImplementation(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(oneDrink),
+      })
+    );
+
+    const { history } = renderWithRouter(<App />);
+    history.push("/drinks/178319/in-progress");
+
+    await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1));
+    
+    const ingredientList = screen.getAllByRole("checkbox");
+    const buttonFinish = screen.getByTestId("finish-recipe-btn");
+
+    expect(buttonFinish).toBeDisabled();
+   
+    ingredientList.forEach((ingredient) => {
+      expect(ingredient).not.toHaveClass('selected');
+      expect(ingredient).not.toBeChecked();
+      userEvent.click(ingredient);
+      expect(ingredient).toBeChecked();
+      expect(ingredient).toHaveClass('selected');
+      userEvent.click(ingredient);
+      expect(ingredient).not.toHaveClass('selected');
+      expect(ingredient).not.toBeChecked();
+      userEvent.click(ingredient);
+    });
+
+    expect(buttonFinish).not.toBeDisabled();   
+
+    // expect(ingredientList[0]).not.toHaveAttribute(
+    //   "text-decoration",
+    //   "line-through"
+    // ); //Aron, olha aqui!
+
+    userEvent.click(buttonFinish);
+
+    await waitFor(() => expect(history.location.pathname).toBe("/done-recipes"));
+
+    expect(JSON.parse(localStorage.getItem('doneRecipes')).length).toBe(1);
+  });
+
+  it("Verifica se a pagina de uma bebida em progresso é renderizada corretamente", async () => {
+    jest.spyOn(global, "fetch").mockImplementation(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(oneMeal),
+      })
+    );
+
+    const { history } = renderWithRouter(<App />);
+    history.push("/foods/52771/in-progress");
+
+    await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1));
+    
+    const ingredientList = screen.getAllByRole("checkbox");
+    const buttonFinish = screen.getByTestId("finish-recipe-btn");
+
+    expect(buttonFinish).toBeDisabled();
+   
+    ingredientList.forEach((ingredient) => {
+      expect(ingredient).not.toHaveClass('selected');
+      expect(ingredient).not.toBeChecked();
+      userEvent.click(ingredient);
+      expect(ingredient).toBeChecked();
+      expect(ingredient).toHaveClass('selected');
+      userEvent.click(ingredient);
+      expect(ingredient).not.toHaveClass('selected');
+      expect(ingredient).not.toBeChecked();
+      userEvent.click(ingredient);
+    });
+
+    expect(buttonFinish).not.toBeDisabled();
+
+    userEvent.click(buttonFinish);
+
+    await waitFor(() => expect(history.location.pathname).toBe("/done-recipes"));
+
+    expect(JSON.parse(localStorage.getItem('doneRecipes')).length).toBe(2);
   });
 });
