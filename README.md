@@ -1,3 +1,11 @@
+Projeto final do módulo de Front-End da Tryb,e desenvolvido em grupo usando metodologias ágeis e a extensão LiveShare para podermos trabalhar bem tanto no síncrono quanto no assíncrono.
+
+Tecnologias Usadas:
+  - React
+  - React-Router
+  - Testes unitários usando RTL
+  - Context-API
+  
 # 🚧 README em construção 🚧
 
 <!-- Olá, Tryber!
