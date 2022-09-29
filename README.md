@@ -6,7 +6,6 @@ Tecnologias Usadas:
   - Testes unitários usando RTL
   - Context-API
   
-# 🚧 README em construção 🚧
 
 <!-- Olá, Tryber!
 
